@@ -16,5 +16,24 @@ namespace ASE_Assignment
         {
             InitializeComponent();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.ShowDialog();
+            Console.WriteLine("Hello");
+            
+
+            
+
+
+
+
+        }
     }
 }
