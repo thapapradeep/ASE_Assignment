@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZedGraph;
 
 namespace ASE_Assignment.Utils
 {
     class SummaryCalculator
     {
-
+        
         List<int> heart = new List<int>();
         List<int> speed = new List<int>();
         List<int> cadence = new List<int>();
@@ -25,13 +26,13 @@ namespace ASE_Assignment.Utils
 
 
         }
-        public String TotalDistance()
+        public string TotalDistance()
         {
 
             return "Total Distance= ";
         }
 
-        public String AverageSpeed()
+        public string AverageSpeed()
         {
 
             int total=0; ;
@@ -48,7 +49,7 @@ namespace ASE_Assignment.Utils
             return "Average Speed= "+averageSpeed;
         }
 
-        public String MaxSpeed()
+        public string MaxSpeed()
         {
            
             int speedd = speed.Max();
@@ -57,7 +58,7 @@ namespace ASE_Assignment.Utils
             return "Maximum Speed=" +speedd;
         }
 
-        public String AverageHeartRate()
+        public string AverageHeartRate()
         {
 
             int total = 0; ;
@@ -76,7 +77,7 @@ namespace ASE_Assignment.Utils
         }
 
 
-        public String MaxHeartRate()
+        public string MaxHeartRate()
         {
 
             int heartRate = heart.Max(); 
@@ -86,7 +87,7 @@ namespace ASE_Assignment.Utils
         }
 
 
-        public String MinHeartRate()
+        public string MinHeartRate()
         {
             
             int heartRate = heart[0];
@@ -96,7 +97,7 @@ namespace ASE_Assignment.Utils
             return "Minimun Heart Rate=" + minHeartRate;
         }
 
-        public String AveragePower()
+        public string AveragePower()
         {
 
             int total = 0; ;
@@ -114,7 +115,7 @@ namespace ASE_Assignment.Utils
         }
 
 
-        public String AverageAltitude()
+        public string AverageAltitude()
         {
 
             int total = 0; 
@@ -125,20 +126,20 @@ namespace ASE_Assignment.Utils
                 total = total + altitude[counter];
                 counter++;
 
+            return "Maximum Altitude=" + total;
             }
 
             averageAltitude = total / counter;
             return "Average Altitude= " + averageAltitude;
         }
 
-        public String MaxAltitude()
+        public string MaxAltitude()
         {
             
             int alt = altitude.Max();
-            
-          
 
-            return "Maximum Altitude=" + alt;
+            return "Maximum Altitude= "+alt;
+
         }
     }
 }

@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using ASE_Assignment.Utils;
+using ZedGraph;
 
 namespace ASE_Assignment
 {
     public partial class Form1 : Form
     {
-        String[] arrays = new String[25];
+        string[] arrays = new string[25];
         List<int> heart = new List<int>();
         List<int> speed = new List<int>();
         List<int> cadence = new List<int>();
@@ -30,7 +31,7 @@ namespace ASE_Assignment
 
         }
 
-        public void processfile(String filePath)
+        public void processfile(string filePath)
         {
 
             try
@@ -38,10 +39,10 @@ namespace ASE_Assignment
 
 
                 StreamReader sr = new StreamReader(filePath);
-                String line = "";
-                String newLine = "";
+                string line = "";
+                string newLine = "";
 
-                String cut = sr.ReadLine();
+                string cut = sr.ReadLine();
 
                 while (!(line = sr.ReadLine()).Contains("[Note]"))
 
@@ -49,7 +50,7 @@ namespace ASE_Assignment
 
                     counter++;
                     arrays[counter - 1] = line;
-                    
+
                 }
 
                 while (!sr.EndOfStream)
@@ -60,7 +61,8 @@ namespace ASE_Assignment
 
                         while ((newLine = sr.ReadLine()) != null)
                         {
-                            ArrayBuilder("    28193  6318  87313  731973 723 5326");
+                            //ArrayBuilder("100    5732   77213  62763  67323   57233");
+                            ArrayBuilder(newLine);
                             //break;
                         }
                     }
@@ -78,12 +80,13 @@ namespace ASE_Assignment
         }
 
 
-        public void ArrayBuilder(String line)
+        public void ArrayBuilder(string line)
         {
 
 
-            String newline = string.Join(" ", line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
-            
+            string newline = string.Join(" ", line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries));
+
+            //string[] parts = newline.Split(' ');
 
             List<string> parts = newline.Split(' ').ToList();
 
@@ -94,8 +97,6 @@ namespace ASE_Assignment
             altitude.Add(int.Parse(parts[3]));
             power.Add(int.Parse(parts[4]));
             powerbalance.Add(int.Parse(parts[5]));
-
-            
 
 
             parts = null;
@@ -112,11 +113,12 @@ namespace ASE_Assignment
             fd.Filter = "HRM|*.hrm|Text Document|*.txt";
             if (fd.ShowDialog() == DialogResult.OK)
             {
-                String filepath = Path.GetFullPath(fd.FileName);
+                string filepath = Path.GetFullPath(fd.FileName);
                 processfile(filepath);
                 TableFiller();
                 SummaryFiller();
-                
+                createWholeGraph();
+
             }
 
             for (int i = 0; i < arrays.Length; i++)
@@ -139,17 +141,17 @@ namespace ASE_Assignment
         public void SummaryFiller()
         {
             SummaryCalculator sv = new SummaryCalculator(heart, speed, cadence, altitude, power);
-            String totalDistance = sv.TotalDistance();
-            String avgSpeed = sv.AverageSpeed();
-            String maxSpeed = sv.MaxSpeed();
-            String avgHeartRate = sv.AverageHeartRate();
-            String minHeartRate = sv.MinHeartRate();
-            String maxHeartRate = sv.MaxHeartRate();
-            String avgPower = sv.AveragePower();
-            String avgAlt = sv.AverageAltitude();
-            String maxAlt = sv.MaxAltitude();
+            string totalDistance = sv.TotalDistance();
+            string avgSpeed = sv.AverageSpeed();
+            string maxSpeed = sv.MaxSpeed();
+            string avgHeartRate = sv.AverageHeartRate();
+            string minHeartRate = sv.MinHeartRate();
+            string maxHeartRate = sv.MaxHeartRate();
+            string avgPower = sv.AveragePower();
+            string avgAlt = sv.AverageAltitude();
+            string maxAlt = sv.MaxAltitude();
 
-            List<String> summary = new List<String>();
+            List<string> summary = new List<string>();
             summary.Add(totalDistance);
             summary.Add(avgSpeed);
             summary.Add(maxSpeed);
@@ -160,7 +162,7 @@ namespace ASE_Assignment
             summary.Add(avgAlt);
             summary.Add(maxAlt);
 
-            foreach (String val in summary)
+            foreach (string val in summary)
             {
 
                 txtSummary.Text = txtSummary.Text + val + Environment.NewLine;
@@ -170,5 +172,51 @@ namespace ASE_Assignment
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private PointPairList buildPointPairList(int[] data)
+        {
+            PointPairList pt = new ZedGraph.PointPairList();
+
+            for (int counter = 0; counter < data.Length; counter++)
+            {
+                pt.Add(counter, (data[counter]));
+            }
+            return pt;
+
+        }
+
+        private void createWholeGraph()
+        {
+            GraphPane myPane = zedGraphControl1.GraphPane;
+            myPane.Title.Text = "Overall Graph";
+            myPane.XAxis.Title.Text = "Time in second";
+            myPane.YAxis.Title.Text = "Heart Rate ";
+            zedGraphControl1.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+            
+
+            PointPairList pt = buildPointPairList(heart.ToArray());
+            PointPairList pt1 = buildPointPairList(speed.ToArray());
+            PointPairList pt2 = buildPointPairList(cadence.ToArray());
+            PointPairList pt3 = buildPointPairList(power.ToArray());
+            PointPairList pt4 = buildPointPairList(altitude.ToArray());
+
+
+            LineItem teamACurve = myPane.AddCurve("Heart Rate", pt, Color.Red, SymbolType.None);
+            LineItem teamACurve1 = myPane.AddCurve("Speed", pt1, Color.Blue, SymbolType.None);
+            LineItem teamACurve2= myPane.AddCurve("Cadence", pt2, Color.Yellow, SymbolType.None);
+            LineItem teamACurve3= myPane.AddCurve("Altitude", pt3, Color.Green, SymbolType.None);
+            LineItem teamACurve4= myPane.AddCurve("Power", pt4, Color.Pink, SymbolType.None);
+            
+
+            zedGraphControl1.AxisChange();
+
+
+        }
     }
 }
+
