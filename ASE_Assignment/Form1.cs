@@ -15,7 +15,7 @@ namespace ASE_Assignment
 {
     public partial class Form1 : Form
     {
-        string[] arrays = new string[25];
+        List<string> arrays = new List<string>();
         List<int> heart = new List<int>();
         List<int> speed = new List<int>();
         List<int> cadence = new List<int>();
@@ -24,9 +24,14 @@ namespace ASE_Assignment
         List<int> powerbalance = new List<int>();
 
 
+        
+
+
         int counter = 0;
+
         public Form1()
         {
+            
             InitializeComponent();
 
         }
@@ -49,7 +54,7 @@ namespace ASE_Assignment
                 {
 
                     counter++;
-                    arrays[counter - 1] = line;
+                    arrays.Add(line);
 
                 }
 
@@ -86,8 +91,6 @@ namespace ASE_Assignment
 
             string newline = string.Join(" ", line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries));
 
-            //string[] parts = newline.Split(' ');
-
             List<string> parts = newline.Split(' ').ToList();
 
             heart.Add(int.Parse(parts[0]));
@@ -118,12 +121,13 @@ namespace ASE_Assignment
                 TableFiller();
                 SummaryFiller();
                 createWholeGraph();
+                CreateIndividualGraph();
 
             }
 
-            for (int i = 0; i < arrays.Length; i++)
+            foreach (string text in arrays)
             {
-                add.Text = add.Text + arrays[i] + Environment.NewLine;
+                add.Text = add.Text + text + Environment.NewLine;
             }
 
         }
@@ -174,7 +178,78 @@ namespace ASE_Assignment
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+        }
+        public void ArrayNuller()
+        {
+            counter = 0;
+            arrays = new List<string>();
+            heart = new List<int>();
+            speed = new List<int>(); ;
+            cadence = new List<int>(); ;
+            altitude = new List<int>(); ;
+            power = new List<int>(); ;
+            powerbalance = new List<int>();
+
+
+            do
+            {
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    try
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+                    catch (Exception) { }
+                }
+            } while (dataGridView1.Rows.Count > 1);
+
+            zedGraphControl1.AxisChange();
+            zedGraphControl1.GraphPane.CurveList.Clear();
+            zedGraphControl1.Invalidate();
+
+            graph1.AxisChange();
+            graph1.GraphPane.CurveList.Clear();
+            graph1.Invalidate();
+
+            graph6.AxisChange();
+            graph6.GraphPane.CurveList.Clear();
+            graph6.Invalidate();
+
+            graph3.AxisChange();
+            graph3.GraphPane.CurveList.Clear();
+            graph3.Invalidate();
+
+            graph4.AxisChange();
+            graph4.GraphPane.CurveList.Clear();
+            graph4.Invalidate();
+
+            graph5.AxisChange();
+            graph5.GraphPane.CurveList.Clear();
+            graph5.Invalidate();
+
+
+
+
+        }
+
+        public void buttonDisabler()
+        {
+            btn1.Enabled = true;
+            btn2.Enabled = true;
+            btn3.Enabled = true;
+            btn4.Enabled = true;
+            btn5.Enabled = true;
+            btn6.Enabled = true;
+            btn7.Enabled = true;
+            btn8.Enabled = true;
+            btn9.Enabled = true;
+            btn10.Enabled = true;
+            btn11.Enabled = true;
+            button14.Enabled = true;
             
+
 
         }
 
@@ -192,20 +267,28 @@ namespace ASE_Assignment
 
         private void createWholeGraph()
         {
-            GraphPane myPane = zedGraphControl1.GraphPane;
+
+            GraphPane myPane = new GraphPane();
+            myPane= zedGraphControl1.GraphPane;
             myPane.Title.Text = "Overall Graph";
             myPane.XAxis.Title.Text = "Time in second";
             myPane.YAxis.Title.Text = "Heart Rate ";
             zedGraphControl1.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
             
 
-            PointPairList pt = buildPointPairList(heart.ToArray());
-            PointPairList pt1 = buildPointPairList(speed.ToArray());
-            PointPairList pt2 = buildPointPairList(cadence.ToArray());
-            PointPairList pt3 = buildPointPairList(power.ToArray());
-            PointPairList pt4 = buildPointPairList(altitude.ToArray());
+            PointPairList pt = new PointPairList();
+            PointPairList pt2 = new PointPairList();
+            PointPairList pt3= new PointPairList();
+            PointPairList pt1 = new PointPairList();
+            PointPairList pt4 = new PointPairList();
 
+            pt = buildPointPairList(heart.ToArray());
+             pt1 = buildPointPairList(speed.ToArray());
+             pt2 = buildPointPairList(cadence.ToArray());
+             pt3 = buildPointPairList(power.ToArray());
+            pt4 = buildPointPairList(altitude.ToArray());
 
+           
             LineItem teamACurve = myPane.AddCurve("Heart Rate", pt, Color.Red, SymbolType.None);
             LineItem teamACurve1 = myPane.AddCurve("Speed", pt1, Color.Blue, SymbolType.None);
             LineItem teamACurve2= myPane.AddCurve("Cadence", pt2, Color.Yellow, SymbolType.None);
@@ -213,10 +296,311 @@ namespace ASE_Assignment
             LineItem teamACurve4= myPane.AddCurve("Power", pt4, Color.Pink, SymbolType.None);
             
 
-            zedGraphControl1.AxisChange();
+            
 
 
         }
+
+        public void CreateIndividualGraph()
+        {
+
+            GraphPane myPane = new GraphPane();
+            myPane= graph1.GraphPane;
+            myPane.Title.Text = "Graph of HeartRate";
+            myPane.XAxis.Title.Text = "Time in second";
+            myPane.YAxis.Title.Text = "Reading ";
+         
+            graph1.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+
+            
+               PointPairList pt = buildPointPairList(heart.ToArray());
+          
+
+            LineItem teamACurve = myPane.AddCurve("Heart Rate", pt, Color.Red, SymbolType.None);
+            graph1.AxisChange();
+
+            GraphPane myPane1 = new GraphPane();
+             myPane1 = graph2.GraphPane;
+            myPane1.Title.Text = "Graph of Speed";
+            myPane1.XAxis.Title.Text = "Time in second";
+            myPane1.YAxis.Title.Text = "Reading ";
+           
+            graph6.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+
+
+            PointPairList pt1 = buildPointPairList(speed.ToArray());
+
+
+            LineItem teamACurve1 = myPane1.AddCurve("Speed", pt1, Color.Red, SymbolType.None);
+            graph6.AxisChange();
+
+            GraphPane myPane2 = new GraphPane();
+            myPane2 = graph3.GraphPane;
+            myPane2.Title.Text = "Graph of Cadence";
+            myPane2.XAxis.Title.Text = "Time in second";
+            myPane2.YAxis.Title.Text = "Reading ";
+
+            graph3.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+
+
+            PointPairList pt3 = buildPointPairList(cadence.ToArray());
+
+
+            LineItem teamACurve2 = myPane2.AddCurve("Cadence", pt3, Color.Red, SymbolType.None);
+            graph3.AxisChange();
+
+            
+
+
+            GraphPane myPane3 = new GraphPane();
+             myPane3= graph4.GraphPane;
+            myPane3.Title.Text = "Graph of Altitude";
+            myPane3.XAxis.Title.Text = "Time in second";
+            myPane3.YAxis.Title.Text = "Reading ";
+
+            graph4.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+
+
+            PointPairList pt4 = buildPointPairList(altitude.ToArray());
+
+
+            LineItem teamACurve4 = myPane3.AddCurve("Altitude", pt4, Color.Red, SymbolType.None);
+            graph4.AxisChange();
+
+            GraphPane myPane5 = new GraphPane();
+             myPane5 = graph5.GraphPane;
+            myPane5.Title.Text = "Graph of Powwer";
+            myPane5.XAxis.Title.Text = "Time in second";
+            myPane5.YAxis.Title.Text = "Reading ";
+
+            graph5.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+
+
+            PointPairList pt5 = buildPointPairList(power.ToArray());
+
+
+            LineItem teamACurve5 = myPane5.AddCurve("Power", pt5, Color.Red, SymbolType.None);
+            graph5.AxisChange();
+
+            
+
+
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn2.Enabled = false;
+            string filepath = "AssignmentData/12072205.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+            
+
+            
+         
+        }
+
+        private void btn2_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn2.Enabled = false;
+            string filepath = "AssignmentData/12072301.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+        
+        }
+
+        private void btn3_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn3.Enabled = false;
+            string filepath = "AssignmentData/12072503.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+           
+        }
+
+        private void btn4_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn4.Enabled = false;
+            string filepath = "AssignmentData/12080101.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+          ;
+        }
+
+        private void btn5_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn5.Enabled = false;
+            string filepath = "AssignmentData/12080301.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+        ;
+        }
+
+        private void btn6_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn6.Enabled = false;
+            string filepath = "AssignmentData/12080401.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+         ;
+        }
+
+        private void btn7_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn7.Enabled = false;
+            string filepath = "AssignmentData/12080405.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+           
+        }
+
+        private void btn8_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn8.Enabled = false;
+            string filepath = "AssignmentData/12080601.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+           
+        }
+
+        private void btn9_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn9.Enabled = false;
+            string filepath = "AssignmentData/12080701.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+           
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string filepath = "AssignmentData/12080801.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+            ArrayNuller();
+            buttonDisabler();
+            button6.Enabled = false;
+        }
+
+        private void btn1_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            button1.Enabled = false;
+            string filepath = "AssignmentData/12080805.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+           
+        }
+
+        private void btn10_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn10.Enabled = false;
+            string filepath = "AssignmentData/12081001.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+          
+        }
+
+        private void btn11_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn11.Enabled = false;
+            string filepath = "AssignmentData/12081101.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+           
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            button14.Enabled = false;
+            string filepath = "AssignmentData/12081201.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+            
+        }
+
+        private void btn12_Click(object sender, EventArgs e)
+        {
+            ArrayNuller();
+            buttonDisabler();
+            btn12.Enabled = false;
+            string filepath = "12072205.hrm";
+            processfile(filepath);
+            TableFiller();
+            SummaryFiller();
+            createWholeGraph();
+            CreateIndividualGraph();
+            
+        }
     }
-}
+    }
+
 
