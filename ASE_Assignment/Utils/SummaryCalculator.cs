@@ -11,15 +11,17 @@ namespace ASE_Assignment.Utils
     {
         
         List<int> heart = new List<int>();
-        List<int> speed = new List<int>();
+        List<double> speed = new List<double>();
+        List<double> speed_mile = new List<double>();
         List<int> cadence = new List<int>();
         List<int> altitude = new List<int>();
         List<int> power = new List<int>();
         List<int> powerbalance = new List<int>();
-        public SummaryCalculator(List<int> heart, List<int> speed, List<int> cadence, List<int> altitude, List<int> power)
+        public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power)
         {
             this.heart = heart;
             this.speed = speed;
+            this.speed_mile = speed_mile;
             this.cadence = cadence;
             this.altitude = altitude;
             this.power = power;
@@ -35,7 +37,7 @@ namespace ASE_Assignment.Utils
         public string AverageSpeed()
         {
 
-            int total=0; ;
+            double total=0; ;
             int counter=0;
             double averageSpeed = 0;
             foreach(int  val in speed)
@@ -46,16 +48,40 @@ namespace ASE_Assignment.Utils
             }
 
             averageSpeed = total / counter;
-            return "Average Speed= "+averageSpeed;
+            return "Average Speed= "+averageSpeed+" km/hr";
+        } 
+
+        public String AverageSpeedMile()
+        {
+            double total = 0; ;
+            int counter = 0;
+            double averageSpeed = 0;
+            foreach (int val in speed)
+            {
+                total = total + speed_mile[counter];
+                counter++;
+
+            }
+            averageSpeed = total / counter;
+            return "Average Speed= " + averageSpeed + " miles/hr";
+
+        }
+        public string MaxSpeedMile()
+        {
+
+            double speedd = speed_mile.Max();
+
+
+            return "Maximum Speed=" + speedd+ " miles/hr";
         }
 
         public string MaxSpeed()
         {
            
-            int speedd = speed.Max();
+            double speedd = speed.Max();
             
          
-            return "Maximum Speed=" +speedd;
+            return "Maximum Speed=" +speedd+" km/hr";
         }
 
         public string AverageHeartRate()
@@ -72,7 +98,7 @@ namespace ASE_Assignment.Utils
             }
 
             averageRate = total / counter;
-            return "Average Speed= " + averageRate;
+            return "Average Speed= " + averageRate +" bpm";
 
         }
 
@@ -83,7 +109,7 @@ namespace ASE_Assignment.Utils
             int heartRate = heart.Max(); 
             
 
-            return "Maximum Heart Rate=" + heartRate;
+            return "Maximum Heart Rate=" + heartRate+" bpm";
         }
 
 
@@ -91,10 +117,10 @@ namespace ASE_Assignment.Utils
         {
             
             int heartRate = heart[0];
-            int counter = 1;
+           
             int minHeartRate = heart.Min();
 
-            return "Minimun Heart Rate=" + minHeartRate;
+            return "Minimun Heart Rate=" + minHeartRate +" bpm";
         }
 
         public string AveragePower()
@@ -111,7 +137,7 @@ namespace ASE_Assignment.Utils
             }
 
             averagePower = total / counter;
-            return "Average Power= " + averagePower;
+            return "Average Power= " + averagePower+"watts";
         }
 
 
@@ -130,7 +156,7 @@ namespace ASE_Assignment.Utils
             }
 
             averageAltitude = total / counter;
-            return "Average Altitude= " + averageAltitude;
+            return "Average Altitude= " + averageAltitude+" m/ft";
         }
 
         public string MaxAltitude()
@@ -138,7 +164,7 @@ namespace ASE_Assignment.Utils
             
             int alt = altitude.Max();
 
-            return "Maximum Altitude= "+alt;
+            return "Maximum Altitude= "+alt+" m/ft";
 
         }
     }

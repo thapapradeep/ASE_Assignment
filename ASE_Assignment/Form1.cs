@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using ASE_Assignment.Utils;
 using ZedGraph;
+using System.Text.RegularExpressions;
 
 namespace ASE_Assignment
 {
@@ -17,7 +18,9 @@ namespace ASE_Assignment
     {
         List<string> arrays = new List<string>();
         List<int> heart = new List<int>();
-        List<int> speed = new List<int>();
+        List<double> speed = new List<double>();
+        List<double> speed_mile = new List<double>();
+
         List<int> cadence = new List<int>();
         List<int> altitude = new List<int>();
         List<int> power = new List<int>();
@@ -31,7 +34,8 @@ namespace ASE_Assignment
 
         public Form1()
         {
-            
+           
+            this.StartPosition = FormStartPosition.CenterParent;
             InitializeComponent();
 
         }
@@ -42,7 +46,7 @@ namespace ASE_Assignment
             try
             {
 
-
+                ArrayNuller();
                 StreamReader sr = new StreamReader(filePath);
                 string line = "";
                 string newLine = "";
@@ -74,6 +78,10 @@ namespace ASE_Assignment
                 }
 
             }
+            catch (InvalidOperationException exc)
+            {
+                MessageBox.Show(exc.ToString());
+            }
 
 
 
@@ -87,22 +95,28 @@ namespace ASE_Assignment
 
         public void ArrayBuilder(string line)
         {
+            try
+            {
+
+                string newline = string.Join(" ", line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries));
+
+                List<string> parts = newline.Split(' ').ToList();
+
+                heart.Add(int.Parse(parts[0]));
+                speed.Add(int.Parse(parts[1]) * 0.1);
+                speed_mile.Add(int.Parse(parts[1]) * 0.1 * 0.62);
+                cadence.Add(int.Parse(parts[2]));
+                altitude.Add(int.Parse(parts[3]));
+                power.Add(int.Parse(parts[4]));
+                powerbalance.Add(int.Parse(parts[5]));
 
 
-            string newline = string.Join(" ", line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries));
-
-            List<string> parts = newline.Split(' ').ToList();
-
-            heart.Add(int.Parse(parts[0]));
-            speed.Add(int.Parse(parts[1]));
-
-            cadence.Add(int.Parse(parts[2]));
-            altitude.Add(int.Parse(parts[3]));
-            power.Add(int.Parse(parts[4]));
-            powerbalance.Add(int.Parse(parts[5]));
-
-
-            parts = null;
+                parts = null;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
 
 
         }
@@ -112,42 +126,66 @@ namespace ASE_Assignment
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "HRM|*.hrm|Text Document|*.txt";
-            if (fd.ShowDialog() == DialogResult.OK)
+            try
             {
-                string filepath = Path.GetFullPath(fd.FileName);
-                processfile(filepath);
-                TableFiller();
-                SummaryFiller();
-                createWholeGraph();
-                CreateIndividualGraph();
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.Filter = "HRM|*.hrm|Text Document|*.txt";
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    string filepath = Path.GetFullPath(fd.FileName);
+                    processfile(filepath);
+                    TableFiller("km/hr");
+                    SummaryFiller("km/hr");
+                    createWholeGraph();
+                    CreateIndividualGraph();
 
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
 
+
+          
+
+        }
+
+        public void TableFiller(String unit)
+        {
+            if (unit.Equals("km/hr"))
+            {
+                int counter = 0;
+                foreach (int value in heart)
+                {
+                    dataGridView1.Rows.Add(heart[counter] + " bpm", speed[counter] + " km/hr", cadence[counter] + " rpm", altitude[counter] + " m/ft", power[counter] + " watt", powerbalance[counter]);
+                    counter++;
+                }
+            }
+             else if (unit.Equals("miles/hr")){
+                int counter = 0;
+                foreach (int value in heart)
+                {
+                    dataGridView1.Rows.Add(heart[counter]+" bpm", speed_mile[counter]+" miles/hr", cadence[counter]+ " rpm", altitude[counter]+" m/ft", power[counter]+" watt", powerbalance[counter]);
+                    counter++;
+                }
+
+             
+            }
             foreach (string text in arrays)
             {
                 add.Text = add.Text + text + Environment.NewLine;
             }
 
         }
-
-        public void TableFiller()
+        public void SummaryFiller(String unit)
         {
-            int counter = 0;
-            foreach (int value in heart)
-            {
-                dataGridView1.Rows.Add(heart[counter], speed[counter], cadence[counter], altitude[counter], power[counter], powerbalance[counter]);
-                counter++;
-            }
-
-        }
-        public void SummaryFiller()
-        {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, cadence, altitude, power);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power);
             string totalDistance = sv.TotalDistance();
             string avgSpeed = sv.AverageSpeed();
             string maxSpeed = sv.MaxSpeed();
+            string avgSpeedMile = sv.AverageSpeedMile();
+            string maxSpeedMile = sv.MaxSpeedMile();
             string avgHeartRate = sv.AverageHeartRate();
             string minHeartRate = sv.MinHeartRate();
             string maxHeartRate = sv.MaxHeartRate();
@@ -155,25 +193,73 @@ namespace ASE_Assignment
             string avgAlt = sv.AverageAltitude();
             string maxAlt = sv.MaxAltitude();
 
-            List<string> summary = new List<string>();
-            summary.Add(totalDistance);
-            summary.Add(avgSpeed);
-            summary.Add(maxSpeed);
-            summary.Add(avgHeartRate);
-            summary.Add(maxHeartRate);
-            summary.Add(minHeartRate);
-            summary.Add(avgPower);
-            summary.Add(avgAlt);
-            summary.Add(maxAlt);
-
-            foreach (string val in summary)
+            if (unit.Equals("km/hr"))
             {
+                List<string> summary = new List<string>();
+                summary.Add(totalDistance);
+                summary.Add(avgSpeed);
+                summary.Add(maxSpeed);
+                summary.Add(avgHeartRate);
+                summary.Add(maxHeartRate);
+                summary.Add(minHeartRate);
+                summary.Add(avgPower);
+                summary.Add(avgAlt);
+                summary.Add(maxAlt);
 
-                txtSummary.Text = txtSummary.Text + val + Environment.NewLine;
+                foreach (string val in summary)
+                {
+
+                    txtSummary.Text = txtSummary.Text + val + Environment.NewLine;
+
+                    summary2.Text = summary2.Text + val + Environment.NewLine;
+
+
+                }
+                foreach (string val in summary)
+                {
+
+
+
+                    summary2.Text = summary2.Text + val + Environment.NewLine;
+
+
+
+                }
 
 
             }
+            else if (unit.Equals("miles/hr")) {
+                List<string> summary = new List<string>();
+                summary.Add(totalDistance);
+                summary.Add(avgSpeedMile);
+                summary.Add(maxSpeedMile);
+                summary.Add(avgHeartRate);
+                summary.Add(maxHeartRate);
+                summary.Add(minHeartRate);
+                summary.Add(avgPower);
+                summary.Add(avgAlt);
+                summary.Add(maxAlt);
 
+                foreach (string val in summary)
+                {
+
+                    txtSummary.Text = txtSummary.Text + val + Environment.NewLine;
+
+                    summary2.Text = summary2.Text + val + Environment.NewLine;
+
+
+                }
+                foreach (string val in summary)
+                {
+
+
+
+                    summary2.Text = summary2.Text + val + Environment.NewLine;
+
+
+
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -184,11 +270,13 @@ namespace ASE_Assignment
         public void ArrayNuller()
         {
             counter = 0;
+            add.Text = "";
             arrays = new List<string>();
             heart = new List<int>();
-            speed = new List<int>(); ;
-            cadence = new List<int>(); ;
-            altitude = new List<int>(); ;
+            speed = new List<double>();
+            speed_mile = new List<double>();
+            cadence = new List<int>(); 
+            altitude = new List<int>(); 
             power = new List<int>(); ;
             powerbalance = new List<int>();
 
@@ -237,6 +325,7 @@ namespace ASE_Assignment
         public void buttonDisabler()
         {
             btn1.Enabled = true;
+            button2.Enabled = true;
             btn2.Enabled = true;
             btn3.Enabled = true;
             btn4.Enabled = true;
@@ -252,8 +341,19 @@ namespace ASE_Assignment
 
 
         }
-
+        
         private PointPairList buildPointPairList(int[] data)
+        {
+            PointPairList pt = new ZedGraph.PointPairList();
+
+            for (int counter = 0; counter < data.Length; counter++)
+            {
+                pt.Add(counter, (data[counter]));
+            }
+            return pt;
+
+        }
+        private PointPairList buildPointPairList(double[] data)
         {
             PointPairList pt = new ZedGraph.PointPairList();
 
@@ -294,7 +394,8 @@ namespace ASE_Assignment
             LineItem teamACurve2= myPane.AddCurve("Cadence", pt2, Color.Yellow, SymbolType.None);
             LineItem teamACurve3= myPane.AddCurve("Altitude", pt3, Color.Green, SymbolType.None);
             LineItem teamACurve4= myPane.AddCurve("Power", pt4, Color.Pink, SymbolType.None);
-            
+
+            zedGraphControl1.AxisChange();
 
             
 
@@ -320,19 +421,19 @@ namespace ASE_Assignment
             graph1.AxisChange();
 
             GraphPane myPane1 = new GraphPane();
-             myPane1 = graph2.GraphPane;
+             myPane1 = graph4.GraphPane;
             myPane1.Title.Text = "Graph of Speed";
             myPane1.XAxis.Title.Text = "Time in second";
             myPane1.YAxis.Title.Text = "Reading ";
            
-            graph6.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+            graph4.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
 
 
             PointPairList pt1 = buildPointPairList(speed.ToArray());
 
 
-            LineItem teamACurve1 = myPane1.AddCurve("Speed", pt1, Color.Red, SymbolType.None);
-            graph6.AxisChange();
+            LineItem teamACurve1 = myPane1.AddCurve("Speed", pt1, Color.Blue, SymbolType.None);
+            graph4.AxisChange();
 
             GraphPane myPane2 = new GraphPane();
             myPane2 = graph3.GraphPane;
@@ -346,30 +447,30 @@ namespace ASE_Assignment
             PointPairList pt3 = buildPointPairList(cadence.ToArray());
 
 
-            LineItem teamACurve2 = myPane2.AddCurve("Cadence", pt3, Color.Red, SymbolType.None);
+            LineItem teamACurve2 = myPane2.AddCurve("Cadence", pt3, Color.Yellow, SymbolType.None);
             graph3.AxisChange();
 
             
 
 
             GraphPane myPane3 = new GraphPane();
-             myPane3= graph4.GraphPane;
+             myPane3= graph6.GraphPane;
             myPane3.Title.Text = "Graph of Altitude";
             myPane3.XAxis.Title.Text = "Time in second";
             myPane3.YAxis.Title.Text = "Reading ";
 
-            graph4.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+            graph6.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
 
 
             PointPairList pt4 = buildPointPairList(altitude.ToArray());
 
 
-            LineItem teamACurve4 = myPane3.AddCurve("Altitude", pt4, Color.Red, SymbolType.None);
-            graph4.AxisChange();
+            LineItem teamACurve4 = myPane3.AddCurve("Altitude", pt4, Color.Green, SymbolType.None);
+            graph6.AxisChange();
 
             GraphPane myPane5 = new GraphPane();
              myPane5 = graph5.GraphPane;
-            myPane5.Title.Text = "Graph of Powwer";
+            myPane5.Title.Text = "Graph of Power";
             myPane5.XAxis.Title.Text = "Time in second";
             myPane5.YAxis.Title.Text = "Reading ";
 
@@ -379,7 +480,7 @@ namespace ASE_Assignment
             PointPairList pt5 = buildPointPairList(power.ToArray());
 
 
-            LineItem teamACurve5 = myPane5.AddCurve("Power", pt5, Color.Red, SymbolType.None);
+            LineItem teamACurve5 = myPane5.AddCurve("Power", pt5, Color.Pink, SymbolType.None);
             graph5.AxisChange();
 
             
@@ -393,17 +494,19 @@ namespace ASE_Assignment
         {
             ArrayNuller();
             buttonDisabler();
-            btn2.Enabled = false;
+            button2.Enabled = false;
             string filepath = "AssignmentData/12072205.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
-            
+            tab2.SelectedIndex = 1;
 
-            
-         
+
+
+
+
         }
 
         private void btn2_Click(object sender, EventArgs e)
@@ -413,8 +516,8 @@ namespace ASE_Assignment
             btn2.Enabled = false;
             string filepath = "AssignmentData/12072301.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
         
@@ -427,8 +530,8 @@ namespace ASE_Assignment
             btn3.Enabled = false;
             string filepath = "AssignmentData/12072503.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
            
@@ -441,8 +544,8 @@ namespace ASE_Assignment
             btn4.Enabled = false;
             string filepath = "AssignmentData/12080101.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
           ;
@@ -455,8 +558,8 @@ namespace ASE_Assignment
             btn5.Enabled = false;
             string filepath = "AssignmentData/12080301.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
         ;
@@ -469,8 +572,8 @@ namespace ASE_Assignment
             btn6.Enabled = false;
             string filepath = "AssignmentData/12080401.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
          ;
@@ -483,8 +586,8 @@ namespace ASE_Assignment
             btn7.Enabled = false;
             string filepath = "AssignmentData/12080405.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
            
@@ -497,8 +600,8 @@ namespace ASE_Assignment
             btn8.Enabled = false;
             string filepath = "AssignmentData/12080601.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
            
@@ -511,8 +614,8 @@ namespace ASE_Assignment
             btn9.Enabled = false;
             string filepath = "AssignmentData/12080701.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
            
@@ -520,15 +623,16 @@ namespace ASE_Assignment
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string filepath = "AssignmentData/12080801.hrm";
-            processfile(filepath);
-            TableFiller();
-            SummaryFiller();
-            createWholeGraph();
-            CreateIndividualGraph();
             ArrayNuller();
             buttonDisabler();
             button6.Enabled = false;
+            string filepath = "AssignmentData/12080801.hrm";
+            processfile(filepath);
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
+            createWholeGraph();
+            CreateIndividualGraph();
+          
         }
 
         private void btn1_Click(object sender, EventArgs e)
@@ -538,8 +642,8 @@ namespace ASE_Assignment
             button1.Enabled = false;
             string filepath = "AssignmentData/12080805.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
            
@@ -552,8 +656,8 @@ namespace ASE_Assignment
             btn10.Enabled = false;
             string filepath = "AssignmentData/12081001.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
           
@@ -566,8 +670,8 @@ namespace ASE_Assignment
             btn11.Enabled = false;
             string filepath = "AssignmentData/12081101.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
            
@@ -580,8 +684,8 @@ namespace ASE_Assignment
             button14.Enabled = false;
             string filepath = "AssignmentData/12081201.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
             
@@ -594,12 +698,125 @@ namespace ASE_Assignment
             btn12.Enabled = false;
             string filepath = "12072205.hrm";
             processfile(filepath);
-            TableFiller();
-            SummaryFiller();
+            TableFiller("km/hr");
+            SummaryFiller("km/hr");
             createWholeGraph();
             CreateIndividualGraph();
             
         }
+
+        private void btn_re_Click(object sender, EventArgs e)
+        {
+            string ftps = txt_ftp.Text;
+            double ftp=0;
+            string unit = "";
+            bool status = Regex.IsMatch(ftps, @"^\d+$");
+            if (cmb_unit.SelectedIndex == -1 || status == false || txt_ftp.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Correct Information");
+            }
+            else
+            {
+                 unit = cmb_unit.Text;
+                ftp = double.Parse(ftps);
+
+                if (unit.Equals("km/hr"))
+                {
+                    txtSummary.Text = "";
+                    summary2.Text = "";
+                    do
+                    {
+                        foreach (DataGridViewRow row in dataGridView1.Rows)
+                        {
+                            try
+                            {
+                                dataGridView1.Rows.Remove(row);
+                            }
+                            catch (Exception) { }
+                        }
+                    } while (dataGridView1.Rows.Count > 1);
+
+                    zedGraphControl1.AxisChange();
+                    zedGraphControl1.GraphPane.CurveList.Clear();
+                    zedGraphControl1.Invalidate();
+
+                    graph1.AxisChange();
+                    graph1.GraphPane.CurveList.Clear();
+                    graph1.Invalidate();
+
+                    graph6.AxisChange();
+                    graph6.GraphPane.CurveList.Clear();
+                    graph6.Invalidate();
+
+                    graph3.AxisChange();
+                    graph3.GraphPane.CurveList.Clear();
+                    graph3.Invalidate();
+
+                    graph4.AxisChange();
+                    graph4.GraphPane.CurveList.Clear();
+                    graph4.Invalidate();
+
+                    graph5.AxisChange();
+                    graph5.GraphPane.CurveList.Clear();
+                    graph5.Invalidate();
+
+                    TableFiller("km/hr");
+                    SummaryFiller("km/hr");
+                    createWholeGraph();
+                    CreateIndividualGraph();
+
+                }
+                else if (unit.Equals("miles/hr"))
+                {
+                    txtSummary.Text = "";
+                    summary2.Text = "";
+                    do
+                    {
+                        foreach (DataGridViewRow row in dataGridView1.Rows)
+                        {
+                            try
+                            {
+                                dataGridView1.Rows.Remove(row);
+                            }
+                            catch (Exception) { }
+                        }
+                    } while (dataGridView1.Rows.Count > 1);
+
+                    zedGraphControl1.AxisChange();
+                    zedGraphControl1.GraphPane.CurveList.Clear();
+                    zedGraphControl1.Invalidate();
+
+                    graph1.AxisChange();
+                    graph1.GraphPane.CurveList.Clear();
+                    graph1.Invalidate();
+
+                    graph6.AxisChange();
+                    graph6.GraphPane.CurveList.Clear();
+                    graph6.Invalidate();
+
+                    graph3.AxisChange();
+                    graph3.GraphPane.CurveList.Clear();
+                    graph3.Invalidate();
+
+                    graph4.AxisChange();
+                    graph4.GraphPane.CurveList.Clear();
+                    graph4.Invalidate();
+
+                    graph5.AxisChange();
+                    graph5.GraphPane.CurveList.Clear();
+                    graph5.Invalidate();
+
+                    TableFiller("miles/hr");
+                    SummaryFiller("miles/hr");
+                    createWholeGraph();
+                    CreateIndividualGraph();
+                }
+            }
+            
+
+        }
+
+        
     }
     }
 
