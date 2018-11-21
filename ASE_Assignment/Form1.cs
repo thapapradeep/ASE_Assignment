@@ -26,6 +26,14 @@ namespace ASE_Assignment
         List<int> power = new List<int>();
         List<int> powerbalance = new List<int>();
 
+        String smode = "";
+        int heartCheck = 0;
+        int speedCheck = 0;
+        int cadenceCheck = 0;
+        int altitudeCheck = 0;
+        int powerCheck = 0;
+        String timee = "";
+
 
         
 
@@ -61,7 +69,12 @@ namespace ASE_Assignment
                     arrays.Add(line);
 
                 }
+                smode = arrays[2];
+                SMODEChecker(smode.Split('='));
 
+                String time1 = arrays[5];
+                string[] timecheck = time1.Split('=');
+                timee = timecheck[1];
                 while (!sr.EndOfStream)
                 {
                     if ((line = sr.ReadLine()).Contains("[HRData]"))
@@ -70,9 +83,9 @@ namespace ASE_Assignment
 
                         while ((newLine = sr.ReadLine()) != null)
                         {
-                            //ArrayBuilder("100    5732   77213  62763  67323   57233");
+                            
                             ArrayBuilder(newLine);
-                            //break;
+                           
                         }
                     }
                 }
@@ -97,19 +110,47 @@ namespace ASE_Assignment
         {
             try
             {
+                int heart11 = 0;
+                int speed1 = 0;
+                int cadence1 = 0;
+                int altitude1 = 0;
+                int power1 = 0;
+                int powerbal = 0;
 
                 string newline = string.Join(" ", line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries));
 
                 List<string> parts = newline.Split(' ').ToList();
-
-                heart.Add(int.Parse(parts[0]));
-                speed.Add(int.Parse(parts[1]) * 0.1);
-                speed_mile.Add(int.Parse(parts[1]) * 0.1 * 0.62);
-                cadence.Add(int.Parse(parts[2]));
-                altitude.Add(int.Parse(parts[3]));
-                power.Add(int.Parse(parts[4]));
-                powerbalance.Add(int.Parse(parts[5]));
-
+                if (heartCheck==1)
+                {
+                    heart11 = int.Parse(parts[0]);
+                }
+               if (speedCheck == 1)
+                {
+                    speed1 = int.Parse(parts[1]);
+                }
+               if (cadenceCheck == 1)
+                {
+                    cadence1 = int.Parse(parts[2]);
+                }
+               if (powerCheck == 1)
+                {
+                    power1 = int.Parse(parts[4]);
+                    powerbal = int.Parse(parts[5]);
+                   
+                }
+                 if (altitudeCheck == 1)
+                {
+                    altitude1 = int.Parse(parts[3]);
+                }
+                
+                    heart.Add(heart11);
+                    speed.Add(speed1 * 0.1);
+                    speed_mile.Add(speed1 * 0.1 * 0.62);
+                    cadence.Add(cadence1);
+                    altitude.Add(altitude1);
+                    power.Add(power1);
+                    powerbalance.Add(powerbal);
+             
 
                 parts = null;
             }
@@ -128,10 +169,12 @@ namespace ASE_Assignment
         {
             try
             {
+               
                 OpenFileDialog fd = new OpenFileDialog();
                 fd.Filter = "HRM|*.hrm|Text Document|*.txt";
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
+                    ArrayNuller();
                     string filepath = Path.GetFullPath(fd.FileName);
                     processfile(filepath);
                     TableFiller("km/hr");
@@ -180,8 +223,9 @@ namespace ASE_Assignment
         }
         public void SummaryFiller(String unit)
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power);
-            string totalDistance = sv.TotalDistance();
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
+            string totalDistanceKm = sv.TotalDistance();
+            string totalMile = sv.TotalDistanceMile();
             string avgSpeed = sv.AverageSpeed();
             string maxSpeed = sv.MaxSpeed();
             string avgSpeedMile = sv.AverageSpeedMile();
@@ -191,12 +235,12 @@ namespace ASE_Assignment
             string maxHeartRate = sv.MaxHeartRate();
             string avgPower = sv.AveragePower();
             string avgAlt = sv.AverageAltitude();
-            string maxAlt = sv.MaxAltitude();
+            string maxPower = sv.maxPower();
 
             if (unit.Equals("km/hr"))
             {
                 List<string> summary = new List<string>();
-                summary.Add(totalDistance);
+                summary.Add(totalDistanceKm);
                 summary.Add(avgSpeed);
                 summary.Add(maxSpeed);
                 summary.Add(avgHeartRate);
@@ -204,7 +248,8 @@ namespace ASE_Assignment
                 summary.Add(minHeartRate);
                 summary.Add(avgPower);
                 summary.Add(avgAlt);
-                summary.Add(maxAlt);
+                summary.Add(maxPower);
+                summary.Add(avgAlt);
 
                 foreach (string val in summary)
                 {
@@ -230,15 +275,15 @@ namespace ASE_Assignment
             }
             else if (unit.Equals("miles/hr")) {
                 List<string> summary = new List<string>();
-                summary.Add(totalDistance);
+                summary.Add(totalMile);
                 summary.Add(avgSpeedMile);
                 summary.Add(maxSpeedMile);
                 summary.Add(avgHeartRate);
                 summary.Add(maxHeartRate);
                 summary.Add(minHeartRate);
                 summary.Add(avgPower);
+                summary.Add(maxPower);
                 summary.Add(avgAlt);
-                summary.Add(maxAlt);
 
                 foreach (string val in summary)
                 {
@@ -271,6 +316,10 @@ namespace ASE_Assignment
         {
             counter = 0;
             add.Text = "";
+            smode = "";
+            timee = "";
+            txtSummary.Text = "";
+            summary2.Text = "";
             arrays = new List<string>();
             heart = new List<int>();
             speed = new List<double>();
@@ -279,6 +328,11 @@ namespace ASE_Assignment
             altitude = new List<int>(); 
             power = new List<int>(); ;
             powerbalance = new List<int>();
+            heartCheck = 0;
+            speedCheck = 0;
+           cadenceCheck = 0;
+            altitudeCheck = 0;
+           powerCheck = 0;
 
 
             do
@@ -322,25 +376,7 @@ namespace ASE_Assignment
 
         }
 
-        public void buttonDisabler()
-        {
-            btn1.Enabled = true;
-            button2.Enabled = true;
-            btn2.Enabled = true;
-            btn3.Enabled = true;
-            btn4.Enabled = true;
-            btn5.Enabled = true;
-            btn6.Enabled = true;
-            btn7.Enabled = true;
-            btn8.Enabled = true;
-            btn9.Enabled = true;
-            btn10.Enabled = true;
-            btn11.Enabled = true;
-            button14.Enabled = true;
-            
 
-
-        }
         
         private PointPairList buildPointPairList(int[] data)
         {
@@ -490,235 +526,22 @@ namespace ASE_Assignment
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            button2.Enabled = false;
-            string filepath = "AssignmentData/12072205.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-            tab2.SelectedIndex = 1;
-
-
-
-
-
-        }
-
-        private void btn2_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn2.Enabled = false;
-            string filepath = "AssignmentData/12072301.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-        
-        }
-
-        private void btn3_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn3.Enabled = false;
-            string filepath = "AssignmentData/12072503.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-           
-        }
-
-        private void btn4_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn4.Enabled = false;
-            string filepath = "AssignmentData/12080101.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-          ;
-        }
-
-        private void btn5_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn5.Enabled = false;
-            string filepath = "AssignmentData/12080301.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-        ;
-        }
-
-        private void btn6_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn6.Enabled = false;
-            string filepath = "AssignmentData/12080401.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-         ;
-        }
-
-        private void btn7_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn7.Enabled = false;
-            string filepath = "AssignmentData/12080405.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-           
-        }
-
-        private void btn8_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn8.Enabled = false;
-            string filepath = "AssignmentData/12080601.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-           
-        }
-
-        private void btn9_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn9.Enabled = false;
-            string filepath = "AssignmentData/12080701.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-           
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            button6.Enabled = false;
-            string filepath = "AssignmentData/12080801.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-          
-        }
-
-        private void btn1_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            button1.Enabled = false;
-            string filepath = "AssignmentData/12080805.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-           
-        }
-
-        private void btn10_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn10.Enabled = false;
-            string filepath = "AssignmentData/12081001.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-          
-        }
-
-        private void btn11_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn11.Enabled = false;
-            string filepath = "AssignmentData/12081101.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-           
-        }
-
-        private void button14_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            button14.Enabled = false;
-            string filepath = "AssignmentData/12081201.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-            
-        }
-
-        private void btn12_Click(object sender, EventArgs e)
-        {
-            ArrayNuller();
-            buttonDisabler();
-            btn12.Enabled = false;
-            string filepath = "12072205.hrm";
-            processfile(filepath);
-            TableFiller("km/hr");
-            SummaryFiller("km/hr");
-            createWholeGraph();
-            CreateIndividualGraph();
-            
-        }
+       
 
         private void btn_re_Click(object sender, EventArgs e)
         {
-            string ftps = txt_ftp.Text;
-            double ftp=0;
+            
+            
             string unit = "";
-            bool status = Regex.IsMatch(ftps, @"^\d+$");
-            if (cmb_unit.SelectedIndex == -1 || status == false || txt_ftp.Text.Equals(""))
+            
+            if (cmb_unit.SelectedIndex == -1 )
             {
                 MessageBox.Show("Please Enter Correct Information");
             }
             else
             {
                  unit = cmb_unit.Text;
-                ftp = double.Parse(ftps);
+               
 
                 if (unit.Equals("km/hr"))
                 {
@@ -815,7 +638,20 @@ namespace ASE_Assignment
             
 
         }
+        private void SMODEChecker(String[] words)
+        {
+            string mode = words[1];
+             heartCheck  = int.Parse(mode.Substring(0,1));
+            speedCheck = int.Parse(mode.Substring(1, 1));
+            cadenceCheck = int.Parse(mode.Substring(2, 1));
+            altitudeCheck = int.Parse(mode.Substring(3, 1));
+            powerCheck = int.Parse(mode.Substring(4, 1));
 
+            
+        }
+        
+
+        
         
     }
     }

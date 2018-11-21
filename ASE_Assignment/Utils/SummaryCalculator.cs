@@ -17,7 +17,8 @@ namespace ASE_Assignment.Utils
         List<int> altitude = new List<int>();
         List<int> power = new List<int>();
         List<int> powerbalance = new List<int>();
-        public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power)
+        string time="";
+        public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power, string time)
         {
             this.heart = heart;
             this.speed = speed;
@@ -25,13 +26,47 @@ namespace ASE_Assignment.Utils
             this.cadence = cadence;
             this.altitude = altitude;
             this.power = power;
+            this.time = time;
 
 
         }
         public string TotalDistance()
         {
+            string[] timee = time.Split(':');
+            double hour = double.Parse(timee[0]);
+            double minute = double.Parse(timee[1]);
+            double second = double.Parse(timee[2]);
+           
+            double totalTime = hour + (minute / 60) + (second / 3600);
 
-            return "Total Distance= ";
+            double averageSpeed = speed.Average();
+
+            double distance = averageSpeed * totalTime;
+           double distance1 =System.Math.Round(distance, 2);
+
+            Console.WriteLine(hour + " " + minute + " " + second + " " + totalTime);
+
+
+            return "Total Distance= "+distance1+"km";
+        }
+        public string TotalDistanceMile()
+        {
+            string[] timee = time.Split(':');
+            double hour = double.Parse(timee[0]);
+            double minute = double.Parse(timee[1]);
+            double second = double.Parse(timee[2]);
+
+            double totalTime = hour + (minute / 60) + (second / 3600);
+
+            double averageSpeed = speed_mile.Average();
+
+            double distance = averageSpeed * totalTime;
+            double distance1 = System.Math.Round(distance, 2);
+
+            
+
+
+            return "Total Distance= " + distance1 + "miles";
         }
 
         public string AverageSpeed()
@@ -48,7 +83,8 @@ namespace ASE_Assignment.Utils
             }
 
             averageSpeed = total / counter;
-            return "Average Speed= "+averageSpeed+" km/hr";
+            double average1 = System.Math.Round(averageSpeed, 2);
+            return "Average Speed= "+average1+" km/hr";
         } 
 
         public String AverageSpeedMile()
@@ -63,7 +99,8 @@ namespace ASE_Assignment.Utils
 
             }
             averageSpeed = total / counter;
-            return "Average Speed= " + averageSpeed + " miles/hr";
+            double average = System.Math.Round(averageSpeed, 2);
+            return "Average Speed= " + average + " miles/hr";
 
         }
         public string MaxSpeedMile()
@@ -89,7 +126,7 @@ namespace ASE_Assignment.Utils
 
             int total = 0; ;
             int counter = 0;
-            double averageRate = 0;
+            double averageRate = 0.00; 
             foreach (int val in heart)
             {
                 total = total + heart[counter];
@@ -98,7 +135,8 @@ namespace ASE_Assignment.Utils
             }
 
             averageRate = total / counter;
-            return "Average Speed= " + averageRate +" bpm";
+            double distance1 = System.Math.Round(averageRate, 2);
+            return "Average Heart Rate= " + distance1 +" bpm";
 
         }
 
@@ -137,7 +175,17 @@ namespace ASE_Assignment.Utils
             }
 
             averagePower = total / counter;
-            return "Average Power= " + averagePower+"watts";
+            double power1 = System.Math.Round(averagePower, 2);
+            return "Average Power= " + power1+"watts";
+        }
+
+        public string maxPower()
+        {
+
+
+            int maxPow = power.Max();
+
+            return "Maximun Power=" + maxPow + " watts";
         }
 
 
@@ -152,20 +200,12 @@ namespace ASE_Assignment.Utils
                 total = total + altitude[counter];
                 counter++;
 
-            return "Maximum Altitude=" + total;
             }
 
             averageAltitude = total / counter;
-            return "Average Altitude= " + averageAltitude+" m/ft";
+            double alt = System.Math.Round(averageAltitude, 2);
+            return "Average Altitude= " + alt+" m/ft";
         }
-
-        public string MaxAltitude()
-        {
-            
-            int alt = altitude.Max();
-
-            return "Maximum Altitude= "+alt+" m/ft";
-
-        }
+        
     }
 }
