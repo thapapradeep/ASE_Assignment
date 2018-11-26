@@ -30,6 +30,8 @@ namespace ASE_Assignment.Utils
 
 
         }
+
+        //Calculates the total distance covered in kilometers
         public string TotalDistance()
         {
             string[] timee = time.Split(':');
@@ -42,13 +44,14 @@ namespace ASE_Assignment.Utils
             double averageSpeed = speed.Average();
 
             double distance = averageSpeed * totalTime;
-           double distance1 =System.Math.Round(distance, 2);
+            double distance1 =System.Math.Round(distance, 2);
 
-            Console.WriteLine(hour + " " + minute + " " + second + " " + totalTime);
 
 
             return "Total Distance= "+distance1+"km";
         }
+
+        //Calculates total distance covered in miles
         public string TotalDistanceMile()
         {
             string[] timee = time.Split(':');
@@ -69,6 +72,7 @@ namespace ASE_Assignment.Utils
             return "Total Distance= " + distance1 + "miles";
         }
 
+        //Calculates average speed
         public string AverageSpeed()
         {
 
@@ -87,6 +91,8 @@ namespace ASE_Assignment.Utils
             return "Average Speed= "+average1+" km/hr";
         } 
 
+
+        //calculates average speed in miles
         public String AverageSpeedMile()
         {
             double total = 0; ;
@@ -103,6 +109,8 @@ namespace ASE_Assignment.Utils
             return "Average Speed= " + average + " miles/hr";
 
         }
+
+        //Calculates maximum speed in milees
         public string MaxSpeedMile()
         {
 
@@ -140,7 +148,7 @@ namespace ASE_Assignment.Utils
 
         }
 
-
+        //Calculates and returns maximum heart rate
         public string MaxHeartRate()
         {
 
@@ -150,7 +158,7 @@ namespace ASE_Assignment.Utils
             return "Maximum Heart Rate=" + heartRate+" bpm";
         }
 
-
+        //Calculates and returns minimum heart rate
         public string MinHeartRate()
         {
             
@@ -161,6 +169,7 @@ namespace ASE_Assignment.Utils
             return "Minimun Heart Rate=" + minHeartRate +" bpm";
         }
 
+        //Calculates Average power
         public string AveragePower()
         {
 
@@ -179,6 +188,7 @@ namespace ASE_Assignment.Utils
             return "Average Power= " + power1+"watts";
         }
 
+        //Calculating  maximum power
         public string maxPower()
         {
 

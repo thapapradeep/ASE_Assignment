@@ -55,6 +55,7 @@
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.summary2 = new System.Windows.Forms.TextBox();
@@ -189,7 +190,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(709, 28);
+            this.label3.Location = new System.Drawing.Point(741, 28);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(219, 25);
             this.label3.TabIndex = 6;
@@ -200,10 +201,10 @@
             this.add.CausesValidation = false;
             this.add.Enabled = false;
             this.add.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.add.Location = new System.Drawing.Point(684, 56);
+            this.add.Location = new System.Drawing.Point(741, 56);
             this.add.Multiline = true;
             this.add.Name = "add";
-            this.add.Size = new System.Drawing.Size(276, 314);
+            this.add.Size = new System.Drawing.Size(219, 314);
             this.add.TabIndex = 5;
             // 
             // button1
@@ -253,10 +254,11 @@
             this.Column4,
             this.Column5,
             this.Column6,
-            this.Column7});
+            this.Column7,
+            this.Column8});
             this.dataGridView1.Location = new System.Drawing.Point(3, 56);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(645, 314);
+            this.dataGridView1.Size = new System.Drawing.Size(732, 314);
             this.dataGridView1.TabIndex = 0;
             // 
             // Column2
@@ -295,6 +297,11 @@
             // 
             this.Column7.HeaderText = "Power Balancing";
             this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Time in (HH:MM:SS)";
+            this.Column8.Name = "Column8";
             // 
             // tabPage3
             // 
@@ -509,12 +516,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtSummary;
         private System.Diagnostics.Process process1;
@@ -531,6 +532,13 @@
         private System.Windows.Forms.Button btn_re;
         private System.Windows.Forms.ComboBox cmb_unit;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
     }
 }
 
