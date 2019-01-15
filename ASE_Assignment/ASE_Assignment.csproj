@@ -51,6 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComparisionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComparisionForm.Designer.cs">
+      <DependentUpon>ComparisionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\SummaryCalculator.cs" />
+    <EmbeddedResource Include="ComparisionForm.resx">
+      <DependentUpon>ComparisionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

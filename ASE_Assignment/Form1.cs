@@ -56,7 +56,7 @@ namespace ASE_Assignment
 
 
 
-// Method to process the file and read the header and data from file
+        // Method to process the file and read the header and data from file
         public void processfile(string filePath)
         {
 
@@ -400,8 +400,61 @@ namespace ASE_Assignment
 
         }
 
+        public void NullerSelectableInfo()
+        {
+            counter = 0;
+            interval = 0;
+            add.Text = "";
 
-// Method to build pointpair list according to time interval and data
+            txtSummary.Text = "";
+            summary2.Text = "";
+
+            heart = new List<int>();
+            speed = new List<double>();
+            speed_mile = new List<double>();
+            cadence = new List<int>();
+            altitude = new List<int>();
+            power = new List<int>(); ;
+            powerbalance = new List<int>();
+            heartCheck = 0;
+            speedCheck = 0;
+            cadenceCheck = 0;
+            altitudeCheck = 0;
+            powerCheck = 0;
+
+
+        
+            zedGraphControl1.AxisChange();
+            zedGraphControl1.GraphPane.CurveList.Clear();
+            zedGraphControl1.Invalidate();
+
+            graph1.AxisChange();
+            graph1.GraphPane.CurveList.Clear();
+            graph1.Invalidate();
+
+            graph6.AxisChange();
+            graph6.GraphPane.CurveList.Clear();
+            graph6.Invalidate();
+
+            graph3.AxisChange();
+            graph3.GraphPane.CurveList.Clear();
+            graph3.Invalidate();
+
+            graph4.AxisChange();
+            graph4.GraphPane.CurveList.Clear();
+            graph4.Invalidate();
+
+            graph5.AxisChange();
+            graph5.GraphPane.CurveList.Clear();
+            graph5.Invalidate();
+
+
+
+
+        }
+
+
+        // Method to build pointpair list according to time interval and data
         private PointPairList buildPointPairList(int[] data)
         {
             PointPairList pt = new ZedGraph.PointPairList();
@@ -678,7 +731,7 @@ namespace ASE_Assignment
         //Method to Create increasing time alongside the parameters
         private String timeBuilder(string time)
         {
-            
+
             string[] hms = time.Split(':');
             int hour = int.Parse(hms[0]);
             int minute = int.Parse(hms[1]);
@@ -688,12 +741,84 @@ namespace ASE_Assignment
             string result = ts.AddSeconds(interval).ToString("HH:mm:ss.f");
             return result;
 
+        }
+
+        private void View_Click(object sender, EventArgs e)
+        {
+             Console.WriteLine(dataGridView1.SelectedRows.Count + "  " + dataGridView1.SelectedColumns.Count);
+            if (dataGridView1.SelectedRows.Count < 1 && dataGridView1.SelectedColumns.Count < 6)
+            {
+                MessageBox.Show("Please select at least one row and more than 5 columns");
+            }
+            else
+            {
+                NullerSelectableInfo();
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                {
+                    String[] word1 = row.Cells[0].Value.ToString().Split(' ');
+                    heart.Add(int.Parse(word1[0]));
+                    Console.WriteLine(row.Cells[0].Value.ToString());
+
+                   String[] word2 = row.Cells[1].Value.ToString().Split(' ');
+
+                     speed.Add(double.Parse(word2[0]));
+                    speed_mile.Add(double.Parse(word2[0]) * 0.62);
+
+                     String[] word3 = row.Cells[2].Value.ToString().Split(' ');
+                     cadence.Add(int.Parse(word3[0]));
+
+                     String[] word4 = row.Cells[3].Value.ToString().Split(' ');
+                     altitude.Add(int.Parse(word4[0]));
+
+                     String[] word5 = row.Cells[4].Value.ToString().Split(' ');
+                     Console.WriteLine(word5[0]);
+                     power.Add(int.Parse(word5[0]));
+
+                    // String word6 = row.Cells[4].Value.ToString(); 
+                     powerbalance.Add(0); 
+
+
+                     Console.WriteLine(word1[0]+"  "+word1[1]);
+
+
+                 }
+              
+
+
+                do
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        try
+                        {
+                            dataGridView1.Rows.Remove(row);
+                        }
+                        catch (Exception) { }
+                    }
+                } while (dataGridView1.Rows.Count > 1);
+
+
+
+                TableFiller("km/hr");
+                SummaryFiller("km/hr");
+                createWholeGraph();
+                CreateIndividualGraph();
+                
 
 
 
 
+                }
+            }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ComparisionForm cf = new ComparisionForm();
+            cf.Show();
         }
     }
-}
+    }
+
+
 
 

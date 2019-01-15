@@ -70,6 +70,8 @@
             this.graph2 = new ZedGraph.ZedGraphControl();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.process1 = new System.Diagnostics.Process();
+            this.button2 = new System.Windows.Forms.Button();
+            this.View = new System.Windows.Forms.Button();
             this.tab2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -105,6 +107,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.View);
+            this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.btn_re);
             this.tabPage2.Controls.Add(this.cmb_unit);
             this.tabPage2.Controls.Add(this.label7);
@@ -258,6 +262,7 @@
             this.Column8});
             this.dataGridView1.Location = new System.Drawing.Point(3, 56);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(732, 314);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -474,6 +479,27 @@
             this.process1.StartInfo.UserName = "";
             this.process1.SynchronizingObject = this;
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(406, 572);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(181, 49);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "Compare Files";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // View
+            // 
+            this.View.Location = new System.Drawing.Point(228, 26);
+            this.View.Name = "View";
+            this.View.Size = new System.Drawing.Size(75, 23);
+            this.View.TabIndex = 17;
+            this.View.Text = "View";
+            this.View.UseVisualStyleBackColor = true;
+            this.View.Click += new System.EventHandler(this.View_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,6 +565,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button View;
     }
 }
 
