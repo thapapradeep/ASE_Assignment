@@ -815,6 +815,7 @@ namespace ASE_Assignment
         {
             ComparisionForm cf = new ComparisionForm();
             cf.Show();
+            this.Hide(); 
         }
     }
     }
