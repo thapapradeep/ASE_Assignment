@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ASE_Assignment.Utils;
 using ZedGraph;
 
 namespace ASE_Assignment
@@ -26,6 +27,7 @@ namespace ASE_Assignment
         List<int> power = new List<int>();
         List<int> powerbalance = new List<int>();
         List<DateTime> dateTime = new List<DateTime>();
+        List<String> summary = new List<String>();
 
 
         List<string> arrays1 = new List<string>();
@@ -38,6 +40,7 @@ namespace ASE_Assignment
         List<int> power11 = new List<int>();
         List<int> powerbalance11 = new List<int>();
         List<DateTime> dateTime1 = new List<DateTime>();
+        List<String> summary1 = new List<String>();
 
         int heartCheck = 0;
         int speedCheck = 0;
@@ -71,7 +74,7 @@ namespace ASE_Assignment
             {
                 fileName.Text = Path.GetFullPath(fd.FileName);
             }
-            }
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
@@ -90,6 +93,8 @@ namespace ASE_Assignment
 
             processfile1(fileName1.Text);
             TableFiller1("km/hr");
+
+            SummaryFiller();
 
             createWholeGraph();
             CreateIndividualGraph();
@@ -369,7 +374,7 @@ namespace ASE_Assignment
                 int counter = 0;
                 foreach (int value in heart)
                 {
-                    
+
                     dataGridView1.Rows.Add(heart[counter] + " bpm", speed[counter] + " km/hr", cadence[counter] + " rpm", altitude[counter] + " m/ft", power[counter] + " watt", powerbalance[counter], timeBuilder(ntime));
                     counter++;
                     interval++;
@@ -387,7 +392,7 @@ namespace ASE_Assignment
                 foreach (int value in heart)
                 {
                     dataGridView2.Rows.Add(heart11[counter] + " bpm", speed11[counter] + " km/hr", cadence11[counter] + " rpm", altitude11[counter] + " m/ft", power11[counter] + " watt", powerbalance11[counter], timeBuilder(ntime1));
-                   
+
                     counter1++;
                     interval++;
                 }
@@ -493,7 +498,7 @@ namespace ASE_Assignment
             myPane.XAxis.Title.Text = "Time in second";
             myPane.YAxis.Title.Text = "Reading ";
 
-           zedGraphControl3.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+            zedGraphControl3.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
 
 
             PointPairList pt = buildPointPairList(heart.ToArray());
@@ -508,7 +513,7 @@ namespace ASE_Assignment
             myPane1.XAxis.Title.Text = "Time in second";
             myPane1.YAxis.Title.Text = "Reading ";
 
-          zedGraphControl4.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+            zedGraphControl4.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
 
 
             PointPairList pt1 = buildPointPairList(speed.ToArray());
@@ -523,14 +528,14 @@ namespace ASE_Assignment
             myPane2.XAxis.Title.Text = "Time in second";
             myPane2.YAxis.Title.Text = "Reading ";
 
-         zedGraphControl5.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
+            zedGraphControl5.GraphPane.Chart.Fill.Color = System.Drawing.Color.Black;
 
 
             PointPairList pt3 = buildPointPairList(cadence.ToArray());
 
 
             LineItem teamACurve2 = myPane2.AddCurve("Cadence", pt3, Color.Yellow, SymbolType.None);
-         zedGraphControl5.AxisChange();
+            zedGraphControl5.AxisChange();
 
             GraphPane myPane3 = new GraphPane();
             myPane3 = zedGraphControl6.GraphPane;
@@ -644,6 +649,70 @@ namespace ASE_Assignment
 
         }
 
+        public void SummaryFiller()
+        {
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
+            string[] stotalDistanceKm = sv.TotalDistance().Split('=');
+            String totalDistanceKm = stotalDistanceKm[1];
+
+            string[] stotalMile = sv.TotalDistanceMile().Split('=');
+            String totalMile = stotalMile[1];
+            string[] savgSpeed = sv.AverageSpeed().Split('=');
+            String avgSpeed = savgSpeed[1];
+            string[] smaxSpeed = sv.MaxSpeed().Split('=');
+            string maxSpeed = smaxSpeed[1];
+            string[] savgSpeedMile = sv.AverageSpeedMile().Split('=');
+            string avgSpeedMile = savgSpeedMile[1];
+            string[] smaxSpeedMile = sv.MaxSpeedMile().Split('=');
+            string maxSpeedMile = smaxSpeedMile[1];
+            string[] savgHeartRate = sv.AverageHeartRate().Split('=');
+            string avgHeartRate = savgHeartRate[1];
+            string[] sminHeartRate = sv.MinHeartRate().Split('=');
+            string minHeartRate = sminHeartRate[1];
+            string[] smaxHeartRate = sv.MaxHeartRate().Split('=');
+            string maxHeartRate = smaxHeartRate[1];
+            string[] savgPower = sv.AveragePower().Split('=');
+            string avgPower = savgPower[1];
+            string[] savgAlt = sv.AverageAltitude().Split('=');
+            string avgAlt = savgAlt[1];
+            string[] smaxPower = sv.maxPower().Split('=');
+            string maxPower = smaxPower[1];
+            dataGridView3.Rows.Add(totalDistanceKm, avgSpeed, maxSpeed, avgHeartRate, maxHeartRate, minHeartRate, avgPower, maxPower, avgAlt);
+
+            SummaryCalculator sv1 = new SummaryCalculator(heart11, speed11, speed_mile11, cadence11, altitude11, power11, timee1);
+            string[] stotalDistanceKm1 = sv1.TotalDistance().Split('=');
+            String totalDistanceKm1 = stotalDistanceKm[1];
+
+            string[] stotalMile1 = sv1.TotalDistanceMile().Split('=');
+            String totalMile1 = stotalMile1[1];
+            string[] savgSpeed1 = sv1.AverageSpeed().Split('=');
+            String avgSpeed1 = savgSpeed1[1];
+            string[] smaxSpeed1 = sv1.MaxSpeed().Split('=');
+            string maxSpeed1 = smaxSpeed1[1];
+            string[] savgSpeedMile1 = sv1.AverageSpeedMile().Split('=');
+            string avgSpeedMile1 = savgSpeedMile1[1];
+            string[] smaxSpeedMile1 = sv1.MaxSpeedMile().Split('=');
+            string maxSpeedMile1 = smaxSpeedMile1[1];
+            string[] savgHeartRate1 = sv1.AverageHeartRate().Split('=');
+            string avgHeartRate1 = savgHeartRate1[1];
+            string[] sminHeartRate1 = sv1.MinHeartRate().Split('=');
+            string minHeartRate1 = sminHeartRate1[1];
+            string[] smaxHeartRate1 = sv1.MaxHeartRate().Split('=');
+            string maxHeartRate1 = smaxHeartRate1[1];
+            string[] savgPower1 = sv1.AveragePower().Split('=');
+            string avgPower1 = savgPower1[1];
+            string[] savgAlt1 = sv1.AverageAltitude().Split('=');
+            string avgAlt1 = savgAlt1[1];
+            string[] smaxPower1 = sv1.maxPower().Split('=');
+            string maxPower1 = smaxPower1[1];
+
+
+
+
+
+            dataGridView4.Rows.Add(totalDistanceKm1, avgSpeed1, maxSpeed1, avgHeartRate1, maxHeartRate1, minHeartRate1, avgPower1, maxPower1, avgAlt1);
+        }
+
         private void ComparisionForm_Load(object sender, EventArgs e)
         {
 
@@ -651,7 +720,7 @@ namespace ASE_Assignment
 
         private void button4_Click(object sender, EventArgs e)
         {
-            
+
             Form1 f = new Form1();
             f.Show();
             this.Hide();
@@ -660,6 +729,148 @@ namespace ASE_Assignment
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView4.Rows[e.RowIndex].Selected = false;
+            dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
+            String value = dataGridView3.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            string newline = string.Join(" ", value.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries));
+
+            Console.WriteLine(value);
+
+            String[] values = newline.Split(' ');
+            Console.WriteLine(values[0]);
+            double parameter = double.Parse(values[0]);
+
+
+            String value1 = dataGridView4.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            Console.WriteLine(value + "  " + value1);
+
+            String[] values1 = value1.Split(' ');
+
+            Console.WriteLine(values1[0]);
+            double parameter1 = double.Parse(values1[0]);
+            double result = parameter - parameter1;
+            String status = "";
+            if (result < 0)
+            {
+                status = "The result is - 'Negative' ";
+            }
+            else
+            {
+                status = "The result is + 'Positive'";
+            }
+
+            String header = dataGridView3.Columns[e.ColumnIndex].HeaderText;
+
+            txt_summaryLog.Text = header + "Of First File=" + parameter + Environment.NewLine + header + "Of Second File=" + parameter1 + Environment.NewLine + "Difference is: " + parameter + "-" + parameter1 + "=" + result + Environment.NewLine + status;
+
+
+
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            if (dataGridView1.SelectedRows.Count == 0 || dataGridView1.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Single row at a time");
+            }
+            else
+            {
+                String[] heartRate = null;
+                String[] speed = null;
+                String[] cadence = null;
+                String[] altitude = null;
+                String[] power = null;
+                String[] powerBalance = null;
+
+                String[] heartRate1 = null;
+                String[] speed1 = null;
+                String[] cadence1 = null;
+                String[] altitude1 = null;
+                String[] power1 = null;
+                String[] powerBalance1 = null;
+
+                dataGridView2.ClearSelection();
+                dataGridView2.Rows[e.RowIndex].Selected = true;
+
+
+
+
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                {
+                    heartRate = row.Cells[0].Value.ToString().Split(' ');
+                    speed = row.Cells[1].Value.ToString().Split(' ');
+                    cadence = row.Cells[2].Value.ToString().Split(' ');
+                    altitude = row.Cells[3].Value.ToString().Split(' ');
+                    power = row.Cells[4].Value.ToString().Split(' ');
+                    powerBalance = row.Cells[5].Value.ToString().Split(' ');
+
+                 
+                }
+
+                foreach(DataGridViewRow row in dataGridView2.SelectedRows)
+                {
+                    heartRate1 = row.Cells[0].Value.ToString().Split(' ');
+                    speed1 = row.Cells[1].Value.ToString().Split(' ');
+                    cadence1 = row.Cells[2].Value.ToString().Split(' ');
+                    altitude1 = row.Cells[3].Value.ToString().Split(' ');
+                    power1 = row.Cells[4].Value.ToString().Split(' ');
+                    powerBalance1 = row.Cells[5].Value.ToString().Split(' ');
+
+                    
+
+                }
+                
+
+                double h_num = double.Parse(heartRate[0]);
+                double s_num = double.Parse(speed[0]);
+                double c_num = double.Parse(cadence[0]);
+                double a_num = double.Parse(altitude[0]);
+                double p_num = double.Parse(power[0]);
+                double po_num = double.Parse(powerBalance[0]);
+
+                double h_num1 = double.Parse(heartRate1[0]);
+                double s_num1 = double.Parse(speed1[0]);
+                double c_num1 = double.Parse(cadence1[0]);
+                double a_num1 = double.Parse(altitude1[0]);
+                double p_num1 = double.Parse(power1[0]);
+                double po_num1 = double.Parse(powerBalance1[0]);
+
+                //String header=dataGridView2=
+                textBox1.Text = "Difference in Heart Rate:" + h_num + "-" + h_num1+"=" + DifferenceCalculator(h_num, h_num1)+
+                    Environment.NewLine+ "Difference in Speed:" + s_num + "-" + s_num1 + "=" + DifferenceCalculator(s_num, s_num1)+
+                    Environment.NewLine + "Difference in Cadence:" + c_num + "-" + c_num1 + "=" + DifferenceCalculator(c_num, c_num1) +
+                    Environment.NewLine + "Difference in Altitude:" + a_num + "-" + a_num1 + "=" + DifferenceCalculator(a_num, a_num1) +
+                    Environment.NewLine + "Difference in Power:" + p_num + "-" + p_num1 + "=" + DifferenceCalculator(p_num, p_num1)+
+                    Environment.NewLine + "Difference in Power Balance:" + po_num + "-" + po_num1 + "=" + DifferenceCalculator(po_num, po_num1)+
+                    Environment.NewLine;
+
+
+            }
+        }
+        private String DifferenceCalculator(double num1, double num2)
+        {
+            String status="";
+            double result = num1 - num2;
+            if (result<0)
+            {
+                status = "negative";
+            }
+            else
+            {
+                status = "positive";
+            }
+            return result +  "  (" + status + ")";
         }
     }
 }

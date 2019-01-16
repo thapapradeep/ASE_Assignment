@@ -48,7 +48,7 @@ namespace ASE_Assignment.Utils
 
 
 
-            return "Total Distance= "+distance1+"km";
+            return "Total Distance="+distance1+" km";
         }
 
         //Calculates total distance covered in miles
@@ -69,7 +69,7 @@ namespace ASE_Assignment.Utils
             
 
 
-            return "Total Distance= " + distance1 + "miles";
+            return "Total Distance="+distance1+" miles";
         }
 
         //Calculates average speed
@@ -88,7 +88,7 @@ namespace ASE_Assignment.Utils
 
             averageSpeed = total / counter;
             double average1 = System.Math.Round(averageSpeed, 2);
-            return "Average Speed= "+average1+" km/hr";
+            return "Average Speed="+average1+" km/hr";
         } 
 
 
@@ -106,7 +106,7 @@ namespace ASE_Assignment.Utils
             }
             averageSpeed = total / counter;
             double average = System.Math.Round(averageSpeed, 2);
-            return "Average Speed= " + average + " miles/hr";
+            return "Average Speed=" + average + " miles/hr";
 
         }
 
@@ -117,7 +117,7 @@ namespace ASE_Assignment.Utils
             double speedd = speed_mile.Max();
 
 
-            return "Maximum Speed=" + speedd+ " miles/hr";
+            return "Maximum Speed=" + speedd+" miles/hr";
         }
 
         public string MaxSpeed()
@@ -144,7 +144,7 @@ namespace ASE_Assignment.Utils
 
             averageRate = total / counter;
             double distance1 = System.Math.Round(averageRate, 2);
-            return "Average Heart Rate= " + distance1 +" bpm";
+            return "Average Heart Rate=" + distance1 +" bpm";
 
         }
 
@@ -166,7 +166,7 @@ namespace ASE_Assignment.Utils
            
             int minHeartRate = heart.Min();
 
-            return "Minimun Heart Rate=" + minHeartRate +" bpm";
+            return "Minimun Heart Rate=" + minHeartRate+" bpm";
         }
 
         //Calculates Average power
@@ -185,7 +185,7 @@ namespace ASE_Assignment.Utils
 
             averagePower = total / counter;
             double power1 = System.Math.Round(averagePower, 2);
-            return "Average Power= " + power1+"watts";
+            return "Average Power=" + power1+" watts";
         }
 
         //Calculating  maximum power
@@ -195,7 +195,7 @@ namespace ASE_Assignment.Utils
 
             int maxPow = power.Max();
 
-            return "Maximun Power=" + maxPow + " watts";
+            return "Maximun Power=" + maxPow +" watts";
         }
 
 
@@ -214,7 +214,7 @@ namespace ASE_Assignment.Utils
 
             averageAltitude = total / counter;
             double alt = System.Math.Round(averageAltitude, 2);
-            return "Average Altitude= " + alt+" m/ft";
+            return "Average Altitude=" + alt+" m/ft";
         }
         
     }
