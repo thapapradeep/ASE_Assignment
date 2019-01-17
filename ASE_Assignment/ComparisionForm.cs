@@ -34,7 +34,6 @@ namespace ASE_Assignment
         List<int> heart11 = new List<int>();
         List<double> speed11 = new List<double>();
         List<double> speed_mile11 = new List<double>();
-
         List<int> cadence11 = new List<int>();
         List<int> altitude11 = new List<int>();
         List<int> power11 = new List<int>();
@@ -677,7 +676,17 @@ namespace ASE_Assignment
             string avgAlt = savgAlt[1];
             string[] smaxPower = sv.maxPower().Split('=');
             string maxPower = smaxPower[1];
-            dataGridView3.Rows.Add(totalDistanceKm, avgSpeed, maxSpeed, avgHeartRate, maxHeartRate, minHeartRate, avgPower, maxPower, avgAlt);
+            string ftp = sv.CalculateFTP();
+            string[] norm1 = sv.CalculateNP().Split('=');
+            string Np1 = norm1[1];
+            string[] sIF1 = sv.CalculateIF().Split('=');
+            string IF1 = sIF1[1];
+            string[] sTss1 = sv.CalculateTSS().Split('=');
+            string Tss1 = sTss1[1];
+           
+            dataGridView3.Rows.Add(totalDistanceKm, avgSpeed, maxSpeed, avgHeartRate, maxHeartRate, minHeartRate, avgPower, maxPower, avgAlt, IF1, Tss1, Np1);
+
+
 
             SummaryCalculator sv1 = new SummaryCalculator(heart11, speed11, speed_mile11, cadence11, altitude11, power11, timee1);
             string[] stotalDistanceKm1 = sv1.TotalDistance().Split('=');
@@ -705,12 +714,22 @@ namespace ASE_Assignment
             string avgAlt1 = savgAlt1[1];
             string[] smaxPower1 = sv1.maxPower().Split('=');
             string maxPower1 = smaxPower1[1];
+                string ftp1 = sv1.CalculateFTP();
+            string[] norm = sv1.CalculateNP().Split('=');
+            Console.WriteLine(sv1.CalculateTSS());
+            string Np = norm[1];
+            string[] sIF= sv1.CalculateIF().Split('=');
+            string IF = sIF[1];
+
+            string[] sTss = sv1.CalculateTSS().Split('=');
+            string Tss = sTss[1];
+            
 
 
 
 
 
-            dataGridView4.Rows.Add(totalDistanceKm1, avgSpeed1, maxSpeed1, avgHeartRate1, maxHeartRate1, minHeartRate1, avgPower1, maxPower1, avgAlt1);
+            dataGridView4.Rows.Add(totalDistanceKm1, avgSpeed1, maxSpeed1, avgHeartRate1, maxHeartRate1, minHeartRate1, avgPower1, maxPower1, avgAlt1, IF, Tss, Np);
         }
 
         private void ComparisionForm_Load(object sender, EventArgs e)

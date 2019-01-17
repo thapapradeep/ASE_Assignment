@@ -29,6 +29,18 @@ namespace ASE_Assignment
         List<int> powerbalance = new List<int>();
         List<DateTime> dateTime = new List<DateTime>();
 
+        List<int> heart11 = new List<int>();
+        List<double> speed11 = new List<double>();
+        List<double> speed_mile11 = new List<double>();
+        List<int> cadence11 = new List<int>();
+        List<int> altitude11 = new List<int>();
+        List<int> power11 = new List<int>();
+        List<int> powerbalance11 = new List<int>();
+
+        int chk_num = 0;
+        int chunk_counter = 0;
+
+
         string time = "";
         String smode = "";
         int heartCheck = 0;
@@ -51,6 +63,11 @@ namespace ASE_Assignment
 
             this.StartPosition = FormStartPosition.CenterParent;
             InitializeComponent();
+            button4.Enabled = false;
+            button5.Enabled = false;
+            button6.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
 
         }
 
@@ -194,8 +211,10 @@ namespace ASE_Assignment
                     processfile(filepath);
                     TableFiller("km/hr");
                     SummaryFiller("km/hr");
+                    Calculate_Advanced();
                     createWholeGraph();
                     CreateIndividualGraph();
+
 
                 }
             }
@@ -240,6 +259,27 @@ namespace ASE_Assignment
             }
 
         }
+        public void Calculate_Advanced()
+        {
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
+            string FTP = sv.CalculateFTP();
+            string Np = sv.CalculateNP();
+            string If = sv.CalculateIF();
+            string Tss = sv.CalculateTSS();
+            List<String> adv = new List<string>
+            {
+                FTP,
+                Np,
+                If,
+                Tss
+
+            };
+            foreach (String val in adv)
+            {
+                txt_advancedMetrics.Text = txt_advancedMetrics.Text + val + Environment.NewLine;
+                txt_advanced_Metrics1.Text = txt_advanced_Metrics1.Text + val + Environment.NewLine;
+            }
+        }
 
         //method to fetch the calculations from summary class and fill the text area
         public void SummaryFiller(String unit)
@@ -258,19 +298,22 @@ namespace ASE_Assignment
             string avgAlt = sv.AverageAltitude();
             string maxPower = sv.maxPower();
 
+
             if (unit.Equals("km/hr"))
             {
-                List<string> summary = new List<string>();
-                summary.Add(totalDistanceKm);
-                summary.Add(avgSpeed);
-                summary.Add(maxSpeed);
-                summary.Add(avgHeartRate);
-                summary.Add(maxHeartRate);
-                summary.Add(minHeartRate);
-                summary.Add(avgPower);
-                summary.Add(avgAlt);
-                summary.Add(maxPower);
-                summary.Add(avgAlt);
+                List<string> summary = new List<string>
+                {
+                    totalDistanceKm,
+                    avgSpeed,
+                    maxSpeed,
+                    avgHeartRate,
+                    maxHeartRate,
+                    minHeartRate,
+                    avgPower,
+                    avgAlt,
+                    maxPower,
+
+                };
 
                 foreach (string val in summary)
                 {
@@ -303,6 +346,7 @@ namespace ASE_Assignment
                 summary.Add(avgPower);
                 summary.Add(maxPower);
                 summary.Add(avgAlt);
+
 
                 foreach (string val in summary)
                 {
@@ -357,6 +401,8 @@ namespace ASE_Assignment
             cadenceCheck = 0;
             altitudeCheck = 0;
             powerCheck = 0;
+            txt_advancedMetrics.Text = "";
+            txt_advanced_Metrics1.Text = "";
 
 
             do
@@ -423,7 +469,7 @@ namespace ASE_Assignment
             powerCheck = 0;
 
 
-        
+
             zedGraphControl1.AxisChange();
             zedGraphControl1.GraphPane.CurveList.Clear();
             zedGraphControl1.Invalidate();
@@ -661,6 +707,7 @@ namespace ASE_Assignment
                     SummaryFiller("km/hr");
                     createWholeGraph();
                     CreateIndividualGraph();
+                    Calculate_Advanced();
 
                 }
                 else if (unit.Equals("miles/hr"))
@@ -708,6 +755,7 @@ namespace ASE_Assignment
                     SummaryFiller("miles/hr");
                     createWholeGraph();
                     CreateIndividualGraph();
+                    Calculate_Advanced();
                 }
             }
 
@@ -745,7 +793,7 @@ namespace ASE_Assignment
 
         private void View_Click(object sender, EventArgs e)
         {
-             Console.WriteLine(dataGridView1.SelectedRows.Count + "  " + dataGridView1.SelectedColumns.Count);
+            Console.WriteLine(dataGridView1.SelectedRows.Count + "  " + dataGridView1.SelectedColumns.Count);
             if (dataGridView1.SelectedRows.Count < 1 && dataGridView1.SelectedColumns.Count < 6)
             {
                 MessageBox.Show("Please select at least one row and more than 5 columns");
@@ -759,30 +807,30 @@ namespace ASE_Assignment
                     heart.Add(int.Parse(word1[0]));
                     Console.WriteLine(row.Cells[0].Value.ToString());
 
-                   String[] word2 = row.Cells[1].Value.ToString().Split(' ');
+                    String[] word2 = row.Cells[1].Value.ToString().Split(' ');
 
-                     speed.Add(double.Parse(word2[0]));
+                    speed.Add(double.Parse(word2[0]));
                     speed_mile.Add(double.Parse(word2[0]) * 0.62);
 
-                     String[] word3 = row.Cells[2].Value.ToString().Split(' ');
-                     cadence.Add(int.Parse(word3[0]));
+                    String[] word3 = row.Cells[2].Value.ToString().Split(' ');
+                    cadence.Add(int.Parse(word3[0]));
 
-                     String[] word4 = row.Cells[3].Value.ToString().Split(' ');
-                     altitude.Add(int.Parse(word4[0]));
+                    String[] word4 = row.Cells[3].Value.ToString().Split(' ');
+                    altitude.Add(int.Parse(word4[0]));
 
-                     String[] word5 = row.Cells[4].Value.ToString().Split(' ');
-                     Console.WriteLine(word5[0]);
-                     power.Add(int.Parse(word5[0]));
+                    String[] word5 = row.Cells[4].Value.ToString().Split(' ');
+                    Console.WriteLine(word5[0]);
+                    power.Add(int.Parse(word5[0]));
 
                     // String word6 = row.Cells[4].Value.ToString(); 
-                     powerbalance.Add(0); 
+                    powerbalance.Add(0);
 
 
-                     Console.WriteLine(word1[0]+"  "+word1[1]);
+                    Console.WriteLine(word1[0] + "  " + word1[1]);
 
 
-                 }
-              
+                }
+
 
 
                 do
@@ -803,22 +851,353 @@ namespace ASE_Assignment
                 SummaryFiller("km/hr");
                 createWholeGraph();
                 CreateIndividualGraph();
-                
 
 
 
 
-                }
+
             }
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
             ComparisionForm cf = new ComparisionForm();
             cf.Show();
-            this.Hide(); 
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int[] heartRate = heart.ToArray();
+            int num = heartRate.Length;
+            int chunk_number = int.Parse(cmb_chunk.Text);
+            chk_num = int.Parse((num / chunk_number).ToString());
+            Console.WriteLine(chk_num);
+
+            if (chunk_number == 1)
+            {
+                MessageBox.Show("Select more than 1 chunks");
+            }
+            else if (chunk_number == 2)
+            {
+                button4.Enabled = true;
+                button5.Enabled = true;
+            }
+            else if (chunk_number == 3)
+            {
+                button4.Enabled = true;
+                button5.Enabled = true;
+                button6.Enabled = true;
+            }
+            else if (chunk_number == 4)
+            {
+                button4.Enabled = true;
+                button5.Enabled = true;
+                button6.Enabled = true;
+                button7.Enabled = true;
+            }
+            else
+            {
+                button4.Enabled = true;
+                button5.Enabled = true;
+                button6.Enabled = true;
+                button7.Enabled = true;
+                button8.Enabled = true;
+
+            }
+
+            foreach (int var in heart)
+            {
+                heart11.Add(var);
+            }
+            foreach (int var in speed)
+            {
+                speed11.Add(var);
+            }
+            foreach (int var in speed_mile)
+            {
+                speed_mile11.Add(var);
+            }
+            foreach (int var in cadence)
+            {
+                cadence11.Add(var);
+            }
+            foreach (int var in altitude)
+            {
+                altitude11.Add(var);
+            }
+            foreach (int var in power)
+            {
+                power11.Add(var);
+            }
+            foreach (int var in powerbalance)
+            {
+                powerbalance11.Add(var);
+            }
+
+            MessageBox.Show("Chunked");
+
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("I am Clicked");
+         
+           
+
+           
+            int[] heart_array = heart11.ToArray();
+            double[] speed_array = speed11.ToArray();
+            double[] speed_mile_array = speed_mile11.ToArray();
+            int[] cadence_array = cadence11.ToArray();
+            int[] altitude_array = altitude11.ToArray();
+            int[] power_array = power11.ToArray();
+            int[] pow_bal_array = powerbalance11.ToArray();
+
+
+            NullerSelectableInfo();
+          
+
+
+            Console.WriteLine(heart_array[0]);
+            for (int counter1 = 0; counter1 < chk_num; counter1++)
+                {
+                heart.Add(heart_array[counter1]);
+                    speed.Add(speed_array[counter1]);
+                    speed_mile.Add(speed_mile_array[counter1]);
+                    cadence.Add(cadence_array[counter1]);
+                    altitude.Add(altitude_array[counter1]);
+                    power.Add(power_array[counter1]);
+                    powerbalance.Add(pow_bal_array[counter1]);
+                    
+                  
+                }
+            do
+            {
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    try
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+                    catch (Exception) { }
+                }
+            } while (dataGridView1.Rows.Count > 1);
+
+
+            TableFiller("km/hr");
+                SummaryFiller("km/hr");
+                createWholeGraph();
+                CreateIndividualGraph();
+
+            
+
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int[] heart_array = heart11.ToArray();
+            double[] speed_array = speed11.ToArray();
+            double[] speed_mile_array = speed_mile11.ToArray();
+            int[] cadence_array = cadence11.ToArray();
+            int[] altitude_array = altitude11.ToArray();
+            int[] power_array = power11.ToArray();
+            int[] pow_bal_array = powerbalance11.ToArray();
+
+            int chk2 = chk_num * 2;
+            if (chk2 > heart_array.Length)
+            {
+                MessageBox.Show("No chunks available");
+            }
+            else
+            {
+                for (int counter1 = chk_num; counter1 < chk2; counter1++)
+                {
+                    heart.Add(heart_array[counter1]);
+                    speed.Add(speed_array[counter1]);
+                    speed_mile.Add(speed_mile_array[counter1]);
+                    cadence.Add(cadence_array[counter1]);
+                    altitude.Add(altitude_array[counter1]);
+                    power.Add(power_array[counter1]);
+                    powerbalance.Add(pow_bal_array[counter1]);
+
+
+                }
+                do
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        try
+                        {
+                            dataGridView1.Rows.Remove(row);
+                        }
+                        catch (Exception) { }
+                    }
+                } while (dataGridView1.Rows.Count > 1);
+
+
+                TableFiller("km/hr");
+                SummaryFiller("km/hr");
+                createWholeGraph();
+                CreateIndividualGraph();
+
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            int[] heart_array = heart11.ToArray();
+            double[] speed_array = speed11.ToArray();
+            double[] speed_mile_array = speed_mile11.ToArray();
+            int[] cadence_array = cadence11.ToArray();
+            int[] altitude_array = altitude11.ToArray();
+            int[] power_array = power11.ToArray();
+            int[] pow_bal_array = powerbalance11.ToArray();
+
+            int chk3 = chk_num * 3;
+            if (chk3 > heart_array.Length)
+            {
+                MessageBox.Show("No chunks available");
+            }
+            else
+            {
+                for (int counter1 = chk_num*2; counter1 < chk3; counter1++)
+                {
+                    heart.Add(heart_array[counter1]);
+                    speed.Add(speed_array[counter1]);
+                    speed_mile.Add(speed_mile_array[counter1]);
+                    cadence.Add(cadence_array[counter1]);
+                    altitude.Add(altitude_array[counter1]);
+                    power.Add(power_array[counter1]);
+                    powerbalance.Add(pow_bal_array[counter1]);
+
+
+                }
+                do
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        try
+                        {
+                            dataGridView1.Rows.Remove(row);
+                        }
+                        catch (Exception) { }
+                    }
+                } while (dataGridView1.Rows.Count > 1);
+
+
+                TableFiller("km/hr");
+                SummaryFiller("km/hr");
+                createWholeGraph();
+                CreateIndividualGraph();
+
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            int[] heart_array = heart11.ToArray();
+            double[] speed_array = speed11.ToArray();
+            double[] speed_mile_array = speed_mile11.ToArray();
+            int[] cadence_array = cadence11.ToArray();
+            int[] altitude_array = altitude11.ToArray();
+            int[] power_array = power11.ToArray();
+            int[] pow_bal_array = powerbalance11.ToArray();
+
+            int chk4 = chk_num * 4;
+            if (chk4 > heart_array.Length)
+            {
+                MessageBox.Show("No chunks available");
+            }
+            else
+            {
+                for (int counter1 = chk_num*3; counter1 < chk4; counter1++)
+                {
+                    heart.Add(heart_array[counter1]);
+                    speed.Add(speed_array[counter1]);
+                    speed_mile.Add(speed_mile_array[counter1]);
+                    cadence.Add(cadence_array[counter1]);
+                    altitude.Add(altitude_array[counter1]);
+                    power.Add(power_array[counter1]);
+                    powerbalance.Add(pow_bal_array[counter1]);
+
+
+                }
+                do
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        try
+                        {
+                            dataGridView1.Rows.Remove(row);
+                        }
+                        catch (Exception) { }
+                    }
+                } while (dataGridView1.Rows.Count > 1);
+
+
+                TableFiller("km/hr");
+                SummaryFiller("km/hr");
+                createWholeGraph();
+                CreateIndividualGraph();
+
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            int[] heart_array = heart11.ToArray();
+            double[] speed_array = speed11.ToArray();
+            double[] speed_mile_array = speed_mile11.ToArray();
+            int[] cadence_array = cadence11.ToArray();
+            int[] altitude_array = altitude11.ToArray();
+            int[] power_array = power11.ToArray();
+            int[] pow_bal_array = powerbalance11.ToArray();
+
+            int chk5 = chk_num * 5 - 1;
+            if (chk5 > heart_array.Length)
+            {
+                MessageBox.Show("No chunks available");
+            }
+            else
+            {
+                for (int counter1 = chk_num*4; counter1 < chk5; counter1++)
+                {
+                    heart.Add(heart_array[counter1]);
+                    speed.Add(speed_array[counter1]);
+                    speed_mile.Add(speed_mile_array[counter1]);
+                    cadence.Add(cadence_array[counter1]);
+                    altitude.Add(altitude_array[counter1]);
+                    power.Add(power_array[counter1]);
+                    powerbalance.Add(pow_bal_array[counter1]);
+
+
+                }
+                do
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        try
+                        {
+                            dataGridView1.Rows.Remove(row);
+                        }
+                        catch (Exception) { }
+                    }
+                } while (dataGridView1.Rows.Count > 1);
+
+
+                TableFiller("km/hr");
+                SummaryFiller("km/hr");
+                createWholeGraph();
+                CreateIndividualGraph();
+
+            }
         }
     }
-    }
+}
 
 
 

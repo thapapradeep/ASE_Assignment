@@ -18,6 +18,10 @@ namespace ASE_Assignment.Utils
         List<int> power = new List<int>();
         List<int> powerbalance = new List<int>();
         string time="";
+        double FTP = 0;
+        double NP = 0;
+        double PB = 12;
+        double IF = 0;
         public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power, string time)
         {
             this.heart = heart;
@@ -217,5 +221,91 @@ namespace ASE_Assignment.Utils
             return "Average Altitude=" + alt+" m/ft";
         }
         
+        public String CalculateFTP()
+        {
+            List<int> power20 = new List<int>();
+            int num = 0;
+            int[] array_power = power.ToArray();
+            for(int counter=0; counter<=1200; counter++)
+            {
+                num = array_power[counter];
+                power20.Add(num);
+            }
+            double avg_power = power20.Average();
+           double  FTP1 = avg_power * 0.95;
+            FTP = System.Math.Round(FTP1, 2);
+            return "FTP="+FTP+" watts";
+        }
+
+
+        public String CalculateNP()
+        {
+            List<int> power10 = new List<int>();
+            List<int> power20 = new List<int>();
+            List<int> power30 = new List<int>();
+            int num = 0;
+            int[] array_power = power.ToArray();
+            for (int counter = 0; counter <= 600; counter++)
+            {
+                num = array_power[counter];
+                power10.Add(num);
+            }
+
+            for (int counter = 601; counter <= 1200; counter++)
+            {
+                num = array_power[counter];
+                power20.Add(num);
+            }
+
+            for (int counter = 1201; counter <= 1800; counter++)
+            {
+                num = array_power[counter];
+                power30.Add(num);
+               
+            }
+            double avg_power1 = power10.Average();
+            double avg_power2 = power20.Average();
+            double avg_power3 = power30.Average();
+
+            double index4 = Math.Pow(avg_power1, 4);
+            double index5 = Math.Pow(avg_power2, 4);
+            double index6= Math.Pow(avg_power3, 4);
+            
+
+            double multiply1 = index4 * 10;
+            double multiply2 = index5 * 10;
+            double multiply3 = index6 * 10;
+
+            double np1 = Math.Sqrt(Math.Sqrt(multiply1));
+            double np2 = Math.Sqrt(Math.Sqrt(multiply2));
+            double np3 = Math.Sqrt(Math.Sqrt(multiply3));
+            
+
+            double  NP1 = (np1 + np2 + np3) / 3;
+            NP = System.Math.Round(NP1, 2);
+
+            return "Normalized Power=" + NP+" watts";
+
+        }
+
+        public String CalculateIF()
+        {
+           double IF1 = NP / FTP;
+            IF = System.Math.Round(IF1, 2);
+          
+            return "Intensity Factor=" + IF+" .";
+        }
+
+        public String CalculateTSS()
+        {
+            int[] heart1 = heart.ToArray();
+            int sec = heart1.Length;
+
+            double TSS1 = (sec * NP * IF) / (FTP * 3600) * 100;
+            double TSS = System.Math.Round(TSS1, 2);
+
+            return "Training Stress Score=" + TSS+" .";
+
+        }
     }
 }

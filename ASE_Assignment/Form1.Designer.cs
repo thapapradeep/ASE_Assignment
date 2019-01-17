@@ -36,6 +36,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tab2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.View = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.btn_re = new System.Windows.Forms.Button();
             this.cmb_unit = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -70,8 +72,17 @@
             this.graph2 = new ZedGraph.ZedGraphControl();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.process1 = new System.Diagnostics.Process();
-            this.button2 = new System.Windows.Forms.Button();
-            this.View = new System.Windows.Forms.Button();
+            this.txt_advanced_Metrics1 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txt_advancedMetrics = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmb_chunk = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.tab2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -107,6 +118,15 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button8);
+            this.tabPage2.Controls.Add(this.button7);
+            this.tabPage2.Controls.Add(this.button6);
+            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.button3);
+            this.tabPage2.Controls.Add(this.cmb_chunk);
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.txt_advancedMetrics);
             this.tabPage2.Controls.Add(this.View);
             this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.btn_re);
@@ -130,9 +150,30 @@
             this.tabPage2.Text = "Data View";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // View
+            // 
+            this.View.Location = new System.Drawing.Point(228, 26);
+            this.View.Name = "View";
+            this.View.Size = new System.Drawing.Size(75, 23);
+            this.View.TabIndex = 17;
+            this.View.Text = "View";
+            this.View.UseVisualStyleBackColor = true;
+            this.View.Click += new System.EventHandler(this.View_Click);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(768, 505);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(181, 49);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "Compare Files";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // btn_re
             // 
-            this.btn_re.Location = new System.Drawing.Point(436, 428);
+            this.btn_re.Location = new System.Drawing.Point(783, 459);
             this.btn_re.Name = "btn_re";
             this.btn_re.Size = new System.Drawing.Size(130, 23);
             this.btn_re.TabIndex = 15;
@@ -146,7 +187,7 @@
             this.cmb_unit.Items.AddRange(new object[] {
             "km/hr",
             "miles/hr"});
-            this.cmb_unit.Location = new System.Drawing.Point(436, 401);
+            this.cmb_unit.Location = new System.Drawing.Point(792, 411);
             this.cmb_unit.Name = "cmb_unit";
             this.cmb_unit.Size = new System.Drawing.Size(121, 21);
             this.cmb_unit.TabIndex = 12;
@@ -154,7 +195,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(433, 385);
+            this.label7.Location = new System.Drawing.Point(789, 385);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(124, 13);
             this.label7.TabIndex = 10;
@@ -310,6 +351,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.txt_advanced_Metrics1);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.summary2);
             this.tabPage3.Controls.Add(this.zedGraphControl1);
@@ -325,7 +368,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 410);
+            this.label6.Location = new System.Drawing.Point(3, 305);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(109, 16);
             this.label6.TabIndex = 2;
@@ -335,10 +378,10 @@
             // 
             this.summary2.Enabled = false;
             this.summary2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.summary2.Location = new System.Drawing.Point(0, 434);
+            this.summary2.Location = new System.Drawing.Point(0, 324);
             this.summary2.Multiline = true;
             this.summary2.Name = "summary2";
-            this.summary2.Size = new System.Drawing.Size(348, 209);
+            this.summary2.Size = new System.Drawing.Size(348, 308);
             this.summary2.TabIndex = 1;
             // 
             // zedGraphControl1
@@ -353,7 +396,7 @@
             this.zedGraphControl1.ScrollMinX = 0D;
             this.zedGraphControl1.ScrollMinY = 0D;
             this.zedGraphControl1.ScrollMinY2 = 0D;
-            this.zedGraphControl1.Size = new System.Drawing.Size(952, 404);
+            this.zedGraphControl1.Size = new System.Drawing.Size(952, 299);
             this.zedGraphControl1.TabIndex = 0;
             // 
             // tabPage4
@@ -479,26 +522,119 @@
             this.process1.StartInfo.UserName = "";
             this.process1.SynchronizingObject = this;
             // 
-            // button2
+            // txt_advanced_Metrics1
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(406, 572);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(181, 49);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Compare Files";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.txt_advanced_Metrics1.Enabled = false;
+            this.txt_advanced_Metrics1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_advanced_Metrics1.Location = new System.Drawing.Point(376, 384);
+            this.txt_advanced_Metrics1.Multiline = true;
+            this.txt_advanced_Metrics1.Name = "txt_advanced_Metrics1";
+            this.txt_advanced_Metrics1.Size = new System.Drawing.Size(348, 145);
+            this.txt_advanced_Metrics1.TabIndex = 3;
             // 
-            // View
+            // label8
             // 
-            this.View.Location = new System.Drawing.Point(228, 26);
-            this.View.Name = "View";
-            this.View.Size = new System.Drawing.Size(75, 23);
-            this.View.TabIndex = 17;
-            this.View.Text = "View";
-            this.View.UseVisualStyleBackColor = true;
-            this.View.Click += new System.EventHandler(this.View_Click);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(463, 365);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(132, 16);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Advanced metrics";
+            // 
+            // txt_advancedMetrics
+            // 
+            this.txt_advancedMetrics.Enabled = false;
+            this.txt_advancedMetrics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_advancedMetrics.Location = new System.Drawing.Point(262, 456);
+            this.txt_advancedMetrics.Multiline = true;
+            this.txt_advancedMetrics.Name = "txt_advancedMetrics";
+            this.txt_advancedMetrics.Size = new System.Drawing.Size(282, 145);
+            this.txt_advancedMetrics.TabIndex = 18;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(281, 437);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(132, 16);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "Advanced metrics";
+            // 
+            // cmb_chunk
+            // 
+            this.cmb_chunk.FormattingEnabled = true;
+            this.cmb_chunk.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmb_chunk.Location = new System.Drawing.Point(513, 373);
+            this.cmb_chunk.Name = "cmb_chunk";
+            this.cmb_chunk.Size = new System.Drawing.Size(121, 21);
+            this.cmb_chunk.TabIndex = 20;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(649, 371);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 21;
+            this.button3.Text = "Chunk";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(597, 400);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(88, 23);
+            this.button4.TabIndex = 22;
+            this.button4.Text = "First Chunk";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(597, 429);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(88, 23);
+            this.button5.TabIndex = 23;
+            this.button5.Text = "Second Chunk";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(597, 459);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(88, 23);
+            this.button6.TabIndex = 24;
+            this.button6.Text = "Third Chunk";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(597, 488);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(88, 23);
+            this.button7.TabIndex = 25;
+            this.button7.Text = "Fourth Chunk";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(597, 517);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(88, 23);
+            this.button8.TabIndex = 26;
+            this.button8.Text = "Fifth Chunk";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // Form1
             // 
@@ -567,6 +703,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button View;
+        private System.Windows.Forms.TextBox txt_advancedMetrics;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txt_advanced_Metrics1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox cmb_chunk;
     }
 }
 
