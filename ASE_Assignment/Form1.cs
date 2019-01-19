@@ -236,7 +236,7 @@ namespace ASE_Assignment
                 int counter = 0;
                 foreach (int value in heart)
                 {
-                    dataGridView1.Rows.Add(heart[counter] + " bpm", speed[counter] + " km/hr", cadence[counter] + " rpm", altitude[counter] + " m/ft", power[counter] + " watt", powerbalance[counter], timeBuilder(ntime));
+                    dataGridView1.Rows.Add(heart[counter] + " bpm",speed[counter]+" km/hr", cadence[counter] + " rpm", altitude[counter] + " m/ft", power[counter] + " watt", powerbalance[counter], timeBuilder(ntime));
                     counter++;
                     interval++;
                 }
@@ -1195,6 +1195,59 @@ namespace ASE_Assignment
                 CreateIndividualGraph();
 
             }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            int starter = 1;
+            int rows = dataGridView1.RowCount;
+            List<int> intervals = new List<int>();
+            int check_zero = 0;
+
+            try
+            {
+                for (int i = starter; i < rows; i++)
+                {
+                    String[] speed1 = dataGridView1.Rows[i].Cells[1].Value.ToString().Split(' ');
+                    double v_speed = double.Parse(speed1[0]);
+                    //Console.WriteLine("i am Called " + i);
+
+                    if (v_speed == 0 && check_zero == 0)
+                    {
+                        intervals.Add(i);
+                        Console.WriteLine(i);
+                        check_zero = 1;
+                    }
+                    else if (v_speed == 0 && check_zero != 0) {
+                       // Console.WriteLine("Ommitted");
+                       // Console.WriteLine("Ommitted");
+                       // Console.WriteLine("Ommitted");
+                    }
+                    else
+                    {
+                        check_zero = 0;
+                    }
+                }
+                foreach (int var in intervals)
+                {
+                    Console.WriteLine(var);
+                }
+              
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Interval_Details id = new Interval_Details(heart, speed, speed_mile, cadence, altitude, power,powerbalance, intervals, ntime);
+            id.Show();
+
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+                
         }
     }
 }

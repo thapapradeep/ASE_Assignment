@@ -21,7 +21,6 @@ namespace ASE_Assignment
         List<int> heart = new List<int>();
         List<double> speed = new List<double>();
         List<double> speed_mile = new List<double>();
-
         List<int> cadence = new List<int>();
         List<int> altitude = new List<int>();
         List<int> power = new List<int>();

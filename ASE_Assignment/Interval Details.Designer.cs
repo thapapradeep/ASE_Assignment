@@ -1,6 +1,6 @@
 ﻿namespace ASE_Assignment
 {
-    partial class Form1
+    partial class Interval_Details
     {
         /// <summary>
         /// Required designer variable.
@@ -25,37 +25,19 @@
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
-        /// the contents of this method with the code editor.
-        /// the contents of this method with the code editor.
-        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tab2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.cmb_chunk = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txt_advancedMetrics = new System.Windows.Forms.TextBox();
             this.View = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btn_re = new System.Windows.Forms.Button();
-            this.cmb_unit = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtSummary = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.add = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,9 +64,13 @@
             this.graph4 = new ZedGraph.ZedGraphControl();
             this.graph1 = new ZedGraph.ZedGraphControl();
             this.graph2 = new ZedGraph.ZedGraphControl();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.process1 = new System.Diagnostics.Process();
-            this.button10 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.int_5 = new System.Windows.Forms.Button();
+            this.int_2 = new System.Windows.Forms.Button();
+            this.int_3 = new System.Windows.Forms.Button();
+            this.int_4 = new System.Windows.Forms.Button();
+            this.int_1 = new System.Windows.Forms.Button();
+            this.txt_info = new System.Windows.Forms.TextBox();
             this.tab2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -93,54 +79,33 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(965, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // tab2
             // 
-            this.tab2.ContextMenuStrip = this.contextMenuStrip1;
             this.tab2.Controls.Add(this.tabPage2);
             this.tab2.Controls.Add(this.tabPage3);
             this.tab2.Controls.Add(this.tabPage4);
-            this.tab2.Location = new System.Drawing.Point(0, 0);
+            this.tab2.Location = new System.Drawing.Point(12, -116);
             this.tab2.Name = "tab2";
             this.tab2.SelectedIndex = 0;
-            this.tab2.Size = new System.Drawing.Size(971, 670);
-            this.tab2.TabIndex = 1;
+            this.tab2.Size = new System.Drawing.Size(994, 772);
+            this.tab2.TabIndex = 2;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.txt_info);
+            this.tabPage2.Controls.Add(this.int_1);
+            this.tabPage2.Controls.Add(this.int_4);
+            this.tabPage2.Controls.Add(this.int_3);
+            this.tabPage2.Controls.Add(this.int_2);
+            this.tabPage2.Controls.Add(this.int_5);
+            this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.button10);
             this.tabPage2.Controls.Add(this.button9);
-            this.tabPage2.Controls.Add(this.button8);
-            this.tabPage2.Controls.Add(this.button7);
-            this.tabPage2.Controls.Add(this.button6);
-            this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.cmb_chunk);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.txt_advancedMetrics);
             this.tabPage2.Controls.Add(this.View);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Controls.Add(this.btn_re);
-            this.tabPage2.Controls.Add(this.cmb_unit);
-            this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.txtSummary);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.add);
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.label2);
@@ -149,10 +114,19 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(963, 644);
+            this.tabPage2.Size = new System.Drawing.Size(986, 746);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Data View";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(838, 2);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 28;
+            this.button10.Text = "Restart";
+            this.button10.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
@@ -162,101 +136,6 @@
             this.button9.TabIndex = 27;
             this.button9.Text = "Show Intervals";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(597, 517);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(88, 23);
-            this.button8.TabIndex = 26;
-            this.button8.Text = "Fifth Chunk";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(597, 488);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(88, 23);
-            this.button7.TabIndex = 25;
-            this.button7.Text = "Fourth Chunk";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(597, 459);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(88, 23);
-            this.button6.TabIndex = 24;
-            this.button6.Text = "Third Chunk";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(597, 429);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(88, 23);
-            this.button5.TabIndex = 23;
-            this.button5.Text = "Second Chunk";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(597, 400);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(88, 23);
-            this.button4.TabIndex = 22;
-            this.button4.Text = "First Chunk";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(649, 371);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 21;
-            this.button3.Text = "Chunk";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // cmb_chunk
-            // 
-            this.cmb_chunk.FormattingEnabled = true;
-            this.cmb_chunk.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.cmb_chunk.Location = new System.Drawing.Point(513, 373);
-            this.cmb_chunk.Name = "cmb_chunk";
-            this.cmb_chunk.Size = new System.Drawing.Size(121, 21);
-            this.cmb_chunk.TabIndex = 20;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(281, 437);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(132, 16);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "Advanced metrics";
-            // 
-            // txt_advancedMetrics
-            // 
-            this.txt_advancedMetrics.Enabled = false;
-            this.txt_advancedMetrics.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_advancedMetrics.Location = new System.Drawing.Point(262, 456);
-            this.txt_advancedMetrics.Multiline = true;
-            this.txt_advancedMetrics.Name = "txt_advancedMetrics";
-            this.txt_advancedMetrics.Size = new System.Drawing.Size(282, 145);
-            this.txt_advancedMetrics.TabIndex = 18;
             // 
             // View
             // 
@@ -266,68 +145,27 @@
             this.View.TabIndex = 17;
             this.View.Text = "View";
             this.View.UseVisualStyleBackColor = true;
-            this.View.Click += new System.EventHandler(this.View_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(768, 505);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(181, 49);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Compare Files";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // btn_re
-            // 
-            this.btn_re.Location = new System.Drawing.Point(783, 459);
-            this.btn_re.Name = "btn_re";
-            this.btn_re.Size = new System.Drawing.Size(130, 23);
-            this.btn_re.TabIndex = 15;
-            this.btn_re.Text = "Recalibrate";
-            this.btn_re.UseVisualStyleBackColor = true;
-            this.btn_re.Click += new System.EventHandler(this.btn_re_Click);
-            // 
-            // cmb_unit
-            // 
-            this.cmb_unit.FormattingEnabled = true;
-            this.cmb_unit.Items.AddRange(new object[] {
-            "km/hr",
-            "miles/hr"});
-            this.cmb_unit.Location = new System.Drawing.Point(792, 411);
-            this.cmb_unit.Name = "cmb_unit";
-            this.cmb_unit.Size = new System.Drawing.Size(121, 21);
-            this.cmb_unit.TabIndex = 12;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(789, 385);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(124, 13);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Choose the unit ofSpeed";
             // 
             // txtSummary
             // 
             this.txtSummary.Enabled = false;
             this.txtSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSummary.Location = new System.Drawing.Point(3, 396);
+            this.txtSummary.Location = new System.Drawing.Point(744, 187);
             this.txtSummary.Multiline = true;
             this.txtSummary.Name = "txtSummary";
-            this.txtSummary.Size = new System.Drawing.Size(253, 245);
+            this.txtSummary.Size = new System.Drawing.Size(236, 245);
             this.txtSummary.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 373);
+            this.label5.Location = new System.Drawing.Point(771, 159);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(177, 25);
             this.label5.TabIndex = 8;
             this.label5.Text = "Summary of Data";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label4
             // 
@@ -349,17 +187,6 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Additional Information";
             // 
-            // add
-            // 
-            this.add.CausesValidation = false;
-            this.add.Enabled = false;
-            this.add.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.add.Location = new System.Drawing.Point(741, 56);
-            this.add.Multiline = true;
-            this.add.Name = "add";
-            this.add.Size = new System.Drawing.Size(219, 314);
-            this.add.TabIndex = 5;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(659, 3);
@@ -368,7 +195,6 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Browse";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox1
             // 
@@ -409,7 +235,7 @@
             this.Column6,
             this.Column7,
             this.Column8});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 56);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 169);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(732, 314);
@@ -635,43 +461,82 @@
             this.graph2.Size = new System.Drawing.Size(926, 150);
             this.graph2.TabIndex = 3;
             // 
-            // Column1
+            // label7
             // 
-            this.Column1.HeaderText = "Heart Rate";
-            this.Column1.Name = "Column1";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(203, 112);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(280, 29);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Data Readings of Interval";
             // 
-            // process1
+            // int_5
             // 
-            this.process1.StartInfo.Domain = "";
-            this.process1.StartInfo.LoadUserProfile = false;
-            this.process1.StartInfo.Password = null;
-            this.process1.StartInfo.StandardErrorEncoding = null;
-            this.process1.StartInfo.StandardOutputEncoding = null;
-            this.process1.StartInfo.UserName = "";
-            this.process1.SynchronizingObject = this;
+            this.int_5.Location = new System.Drawing.Point(101, 564);
+            this.int_5.Name = "int_5";
+            this.int_5.Size = new System.Drawing.Size(75, 23);
+            this.int_5.TabIndex = 30;
+            this.int_5.Text = "Interval 5";
+            this.int_5.UseVisualStyleBackColor = true;
+            this.int_5.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button10
+            // int_2
             // 
-            this.button10.Location = new System.Drawing.Point(838, 2);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 28;
-            this.button10.Text = "Restart";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.int_2.Location = new System.Drawing.Point(101, 535);
+            this.int_2.Name = "int_2";
+            this.int_2.Size = new System.Drawing.Size(75, 23);
+            this.int_2.TabIndex = 31;
+            this.int_2.Text = "Interval 2";
+            this.int_2.UseVisualStyleBackColor = true;
+            this.int_2.Click += new System.EventHandler(this.int_2_Click);
             // 
-            // Form1
+            // int_3
+            // 
+            this.int_3.Location = new System.Drawing.Point(182, 551);
+            this.int_3.Name = "int_3";
+            this.int_3.Size = new System.Drawing.Size(75, 23);
+            this.int_3.TabIndex = 32;
+            this.int_3.Text = "Interval 3";
+            this.int_3.UseVisualStyleBackColor = true;
+            this.int_3.Click += new System.EventHandler(this.int_3_Click);
+            // 
+            // int_4
+            // 
+            this.int_4.Location = new System.Drawing.Point(8, 564);
+            this.int_4.Name = "int_4";
+            this.int_4.Size = new System.Drawing.Size(75, 23);
+            this.int_4.TabIndex = 33;
+            this.int_4.Text = "Interval 4";
+            this.int_4.UseVisualStyleBackColor = true;
+            this.int_4.Click += new System.EventHandler(this.int_4_Click);
+            // 
+            // int_1
+            // 
+            this.int_1.Location = new System.Drawing.Point(8, 535);
+            this.int_1.Name = "int_1";
+            this.int_1.Size = new System.Drawing.Size(75, 23);
+            this.int_1.TabIndex = 34;
+            this.int_1.Text = "Interval 1";
+            this.int_1.UseVisualStyleBackColor = true;
+            this.int_1.Click += new System.EventHandler(this.int_1_Click);
+            // 
+            // txt_info
+            // 
+            this.txt_info.Location = new System.Drawing.Point(6, 491);
+            this.txt_info.Multiline = true;
+            this.txt_info.Name = "txt_info";
+            this.txt_info.Size = new System.Drawing.Size(528, 38);
+            this.txt_info.TabIndex = 35;
+            // 
+            // Interval_Details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 666);
+            this.ClientSize = new System.Drawing.Size(1056, 668);
             this.Controls.Add(this.tab2);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Health Moniter";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "Interval_Details";
+            this.Text = "Interval_Details";
             this.tab2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -681,43 +546,25 @@
             this.tabPage4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.TabControl tab2;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button View;
+        private System.Windows.Forms.TextBox txtSummary;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox add;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtSummary;
-        private System.Diagnostics.Process process1;
-        private ZedGraph.ZedGraphControl zedGraphControl1;
-        private System.Windows.Forms.Panel panel1;
-        private ZedGraph.ZedGraphControl graph5;
-        private ZedGraph.ZedGraphControl graph2;
-        private ZedGraph.ZedGraphControl graph3;
-        private ZedGraph.ZedGraphControl graph4;
-        private ZedGraph.ZedGraphControl graph1;
-        private ZedGraph.ZedGraphControl graph6;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox summary2;
-        private System.Windows.Forms.Button btn_re;
-        private System.Windows.Forms.ComboBox cmb_unit;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
@@ -725,21 +572,26 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button View;
-        private System.Windows.Forms.TextBox txt_advancedMetrics;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt_advanced_Metrics1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ComboBox cmb_chunk;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox summary2;
+        private ZedGraph.ZedGraphControl zedGraphControl1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Panel panel1;
+        private ZedGraph.ZedGraphControl graph6;
+        private ZedGraph.ZedGraphControl graph5;
+        private ZedGraph.ZedGraphControl graph3;
+        private ZedGraph.ZedGraphControl graph4;
+        private ZedGraph.ZedGraphControl graph1;
+        private ZedGraph.ZedGraphControl graph2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button int_1;
+        private System.Windows.Forms.Button int_4;
+        private System.Windows.Forms.Button int_3;
+        private System.Windows.Forms.Button int_2;
+        private System.Windows.Forms.Button int_5;
+        private System.Windows.Forms.TextBox txt_info;
     }
 }
-
