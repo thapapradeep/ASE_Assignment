@@ -7,7 +7,7 @@ using ZedGraph;
 
 namespace ASE_Assignment.Utils
 {
-    class SummaryCalculator
+   public class SummaryCalculator
     {
         
         List<int> heart = new List<int>();
@@ -22,6 +22,18 @@ namespace ASE_Assignment.Utils
         double NP = 0;
         double PB = 12;
         double IF = 0;
+
+
+        /// <summary>
+        /// Constructor of this class that takes 8 parameters to calculate the summary
+        /// </summary>
+        /// <param name="heart"></param>
+        /// <param name="speed"></param>
+        /// <param name="speed_mile"></param>
+        /// <param name="cadence"></param>
+        /// <param name="altitude"></param>
+        /// <param name="power"></param>
+        /// <param name="time"></param>
         public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power, string time)
         {
             this.heart = heart;
@@ -35,7 +47,10 @@ namespace ASE_Assignment.Utils
 
         }
 
-        //Calculates the total distance covered in kilometers
+        /// <summary>
+        /// Calculates the total distance covered in kilometers
+        /// </summary>
+        /// <returns></returns>
         public string TotalDistance()
         {
             string[] timee = time.Split(':');
@@ -55,7 +70,10 @@ namespace ASE_Assignment.Utils
             return "Total Distance="+distance1+" km";
         }
 
-        //Calculates total distance covered in miles
+        /// <summary>
+        /// Calculates total distance covered in miles
+        /// </summary>
+        /// <returns></returns>
         public string TotalDistanceMile()
         {
             string[] timee = time.Split(':');
@@ -76,7 +94,10 @@ namespace ASE_Assignment.Utils
             return "Total Distance="+distance1+" miles";
         }
 
-        //Calculates average speed
+        /// <summary>
+        /// Calculates average speed
+        /// </summary>
+        /// <returns></returns>
         public string AverageSpeed()
         {
 
@@ -93,10 +114,13 @@ namespace ASE_Assignment.Utils
             averageSpeed = total / counter;
             double average1 = System.Math.Round(averageSpeed, 2);
             return "Average Speed="+average1+" km/hr";
-        } 
+        }
 
 
-        //calculates average speed in miles
+        /// <summary>
+        /// calculates average speed in miles
+        /// </summary>
+        /// <returns></returns>
         public String AverageSpeedMile()
         {
             double total = 0; ;
@@ -114,7 +138,10 @@ namespace ASE_Assignment.Utils
 
         }
 
-        //Calculates maximum speed in milees
+        /// <summary>
+        /// Calculates maximum speed in milees
+        /// </summary>
+        /// <returns></returns>
         public string MaxSpeedMile()
         {
 
@@ -133,6 +160,10 @@ namespace ASE_Assignment.Utils
             return "Maximum Speed=" +speedd+" km/hr";
         }
 
+        /// <summary>
+        /// Calculates averege Heart rate from array
+        /// </summary>
+        /// <returns></returns>
         public string AverageHeartRate()
         {
 
@@ -152,7 +183,10 @@ namespace ASE_Assignment.Utils
 
         }
 
-        //Calculates and returns maximum heart rate
+        /// <summary>
+        /// Calculates and returns maximum heart rate
+        /// </summary>
+        /// <returns></returns>
         public string MaxHeartRate()
         {
 
@@ -162,7 +196,10 @@ namespace ASE_Assignment.Utils
             return "Maximum Heart Rate=" + heartRate+" bpm";
         }
 
-        //Calculates and returns minimum heart rate
+        /// <summary>
+        /// Calculates and returns minimum heart rate
+        /// </summary>
+        /// <returns></returns>
         public string MinHeartRate()
         {
             
@@ -173,7 +210,10 @@ namespace ASE_Assignment.Utils
             return "Minimun Heart Rate=" + minHeartRate+" bpm";
         }
 
-        //Calculates Average power
+        /// <summary>
+        /// Calculates Average power
+        /// </summary>
+        /// <returns></returns>
         public string AveragePower()
         {
 
@@ -192,17 +232,23 @@ namespace ASE_Assignment.Utils
             return "Average Power=" + power1+" watts";
         }
 
-        //Calculating  maximum power
+        /// <summary>
+        /// Calculating  maximum power
+        /// </summary>
+        /// <returns></returns>
         public string maxPower()
         {
 
 
             int maxPow = power.Max();
 
-            return "Maximun Power=" + maxPow +" watts";
+            return "Maximum Power=" + maxPow +" watts";
         }
 
-
+        /// <summary>
+        /// Calculates and returns average altitude
+        /// </summary>
+        /// <returns></returns>
         public string AverageAltitude()
         {
 
@@ -221,6 +267,12 @@ namespace ASE_Assignment.Utils
             return "Average Altitude=" + alt+" m/ft";
         }
         
+
+
+        /// <summary>
+        /// Calculates the functional threshold power and returns it
+        /// </summary>
+        /// <returns></returns>
         public String CalculateFTP()
         {
             List<int> power20 = new List<int>();
@@ -238,6 +290,11 @@ namespace ASE_Assignment.Utils
         }
 
 
+
+        /// <summary>
+        /// Calculates Normalized Power
+        /// </summary>
+        /// <returns></returns>
         public String CalculateNP()
         {
             List<int> power10 = new List<int>();
@@ -288,6 +345,12 @@ namespace ASE_Assignment.Utils
 
         }
 
+
+        /// <summary>
+        /// Calculates Intensity Factor and returns it 
+        /// </summary>
+        /// <returns></returns>
+
         public String CalculateIF()
         {
            double IF1 = NP / FTP;
@@ -296,6 +359,11 @@ namespace ASE_Assignment.Utils
             return "Intensity Factor=" + IF+" .";
         }
 
+
+        /// <summary>
+        /// Calculates Training Score Stress
+        /// </summary>
+        /// <returns></returns>
         public String CalculateTSS()
         {
             int[] heart1 = heart.ToArray();

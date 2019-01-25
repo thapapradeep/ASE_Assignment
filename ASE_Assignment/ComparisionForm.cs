@@ -15,7 +15,9 @@ namespace ASE_Assignment
 {
     public partial class ComparisionForm : Form
     {
-
+        /// <summary>
+        /// Necessary Variable Declaration
+        /// </summary>
 
         List<string> arrays = new List<string>();
         List<int> heart = new List<int>();
@@ -64,6 +66,12 @@ namespace ASE_Assignment
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Action Event to open the file dialouge to open first file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
@@ -73,6 +81,14 @@ namespace ASE_Assignment
                 fileName.Text = Path.GetFullPath(fd.FileName);
             }
         }
+
+
+
+        /// <summary>
+        /// Action Event to open the file dialouge to open second file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
@@ -84,6 +100,12 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Button to compare the files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             processfile(fileName.Text);
@@ -100,6 +122,11 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Opens and processes the first file to build respective array
+        /// </summary>
+        /// <param name="filePath"></param>
         public void processfile(string filePath)
         {
 
@@ -164,6 +191,11 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Opens and processes the second file to build respective array
+        /// </summary>
+        /// <param name="filePath"></param>
         public void processfile1(string filePath)
         {
 
@@ -228,6 +260,10 @@ namespace ASE_Assignment
 
         }
 
+        /// <summary>
+        /// Builds the array according to the smode 
+        /// </summary>
+        /// <param name="line"></param>
         public void ArrayBuilder(string line)
         {
             try
@@ -283,7 +319,10 @@ namespace ASE_Assignment
 
 
         }
-
+        /// <summary>
+        /// Builds the array of second file according to smode
+        /// </summary>
+        /// <param name="line"></param>
         public void ArrayBuilder1(string line)
         {
             try
@@ -340,6 +379,10 @@ namespace ASE_Assignment
 
         }
 
+        /// <summary>
+        /// Checks the smode of the file
+        /// </summary>
+        /// <param name="words"></param>
         private void SMODEChecker(String[] words)
         {
             string mode = words[1];
@@ -352,6 +395,12 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Builds the string to a formatted time and returns it
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         private String timeBuilder(string time)
         {
 
@@ -365,6 +414,12 @@ namespace ASE_Assignment
             return result;
 
         }
+
+
+        /// <summary>
+        /// Fills the Details of first file into its table
+        /// </summary>
+        /// <param name="unit"></param>
         public void TableFiller(String unit)
         {
             if (unit.Equals("km/hr"))
@@ -381,7 +436,10 @@ namespace ASE_Assignment
 
 
         }
-
+        /// <summary>
+        /// Fills the Details of first file into its table
+        /// </summary>
+        /// <param name="unit"></param>
         public void TableFiller1(String unit)
         {
             if (unit.Equals("km/hr"))
@@ -399,6 +457,12 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Builds point pair list according to the interval and time for graph creation
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private PointPairList buildPointPairList(int[] data)
         {
             PointPairList pt = new ZedGraph.PointPairList();
@@ -410,6 +474,14 @@ namespace ASE_Assignment
             return pt;
 
         }
+
+
+
+        /// <summary>
+        /// Builds point pair list according to the interval and time for graph creation
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private PointPairList buildPointPairList(double[] data)
         {
             PointPairList pt = new ZedGraph.PointPairList();
@@ -422,7 +494,9 @@ namespace ASE_Assignment
 
         }
 
-
+        /// <summary>
+        /// Creates overall graph for the first file
+        /// </summary>
         private void createWholeGraph()
         {
 
@@ -487,6 +561,9 @@ namespace ASE_Assignment
 
         }
 
+        /// <summary>
+        /// Creates individual graph for first file
+        /// </summary>
         public void CreateIndividualGraph()
         {
 
@@ -647,6 +724,10 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Fills the  Summary details into the table for compariion
+        /// </summary>
         public void SummaryFiller()
         {
             SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
@@ -736,6 +817,11 @@ namespace ASE_Assignment
 
         }
 
+        /// <summary>
+        /// Action event for calling the first form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
 
@@ -749,6 +835,12 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Action event ot populate the details of + -individual data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView4.Rows[e.RowIndex].Selected = false;
@@ -794,6 +886,12 @@ namespace ASE_Assignment
 
 
         }
+
+        /// <summary>
+        /// Action Event to compare the summary of the data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -876,6 +974,13 @@ namespace ASE_Assignment
 
             }
         }
+
+        /// <summary>
+        /// Method to compare two numbers and calculate difference
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
         private String DifferenceCalculator(double num1, double num2)
         {
             String status="";

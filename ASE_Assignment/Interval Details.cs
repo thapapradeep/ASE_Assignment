@@ -41,6 +41,19 @@ namespace ASE_Assignment
 
         String time = "";
         int interval = 1;
+
+        /// <summary>
+        /// Constructor that takes nine parameters
+        /// </summary>
+        /// <param name="heart"></param>
+        /// <param name="speed"></param>
+        /// <param name="speed_mile"></param>
+        /// <param name="cadence"></param>
+        /// <param name="altitude"></param>
+        /// <param name="power"></param>
+        /// <param name="powerbalance"></param>
+        /// <param name="intervals"></param>
+        /// <param name="time"></param>
         public Interval_Details(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power, List<int> powerbalance, List<int>intervals, string time)
         {
             InitializeComponent();
@@ -66,6 +79,10 @@ namespace ASE_Assignment
 
 
         }
+
+        /// <summary>
+        /// This method checks the number of intervals and makes the arrau ready to be presented
+        /// </summary>
         public void Interval_Ckeck() {
             int count = intervals.ToArray().Length;
             txt_info.Text = "Detecetd " + count + " intervals" + Environment.NewLine + "Click The buttons below to view the info";
@@ -135,7 +152,10 @@ namespace ASE_Assignment
 
 
 
-
+        /// <summary>
+        /// Fills the data tabble according to the array declared
+        /// </summary>
+        /// <param name="unit"></param>
 
         public void TableFiller(String unit)
         {
@@ -151,6 +171,11 @@ namespace ASE_Assignment
             }
         }
 
+        /// <summary>
+        /// Takes strins, splits and bulids the string tinto formatted time and returns it
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         private String timeBuilder(string time)
         {
 
@@ -170,6 +195,9 @@ namespace ASE_Assignment
 
         }
 
+        /// <summary>
+        /// This method is used to re declare the variable for the later use
+        /// </summary>
        public void InfoNuller()
         {
             txtSummary.Text = "";
@@ -182,6 +210,11 @@ namespace ASE_Assignment
             powerbalance = new List<int>();
         }
 
+        /// <summary>
+        /// Action event to see the details of first interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void int_1_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -197,6 +230,7 @@ namespace ASE_Assignment
 
 
             Console.WriteLine(heart_array[0]);
+            InfoNuller();
             for (int counter1 = 0; counter1 <intervals[0]; counter1++)
             {
                 heart.Add(heart_array[counter1]);
@@ -226,6 +260,11 @@ namespace ASE_Assignment
             SummaryFiller();
         }
 
+        /// <summary>
+        /// Action event to see the details of second interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void int_2_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -241,6 +280,7 @@ namespace ASE_Assignment
 
 
             Console.WriteLine(heart_array[0]);
+            InfoNuller();
             for (int counter1 = intervals[0]; counter1 < intervals[1]; counter1++)
             {
                 heart.Add(heart_array[counter1]);
@@ -269,7 +309,11 @@ namespace ASE_Assignment
             TableFiller("km/hr");
             SummaryFiller();
         }
-
+        /// <summary>
+        /// Action event to see the details of third interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void int_3_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -286,6 +330,7 @@ namespace ASE_Assignment
 
 
             Console.WriteLine(heart_array[0]);
+            InfoNuller();
             for (int counter1 = intervals[1]; counter1 < intervals[2]; counter1++)
             {
                 heart.Add(heart_array[counter1]);
@@ -315,6 +360,11 @@ namespace ASE_Assignment
             SummaryFiller();
         }
 
+        /// <summary>
+        /// Action event to see the details of fourth interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void int_4_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -330,6 +380,7 @@ namespace ASE_Assignment
 
 
             Console.WriteLine(heart_array[0]);
+            InfoNuller();
             for (int counter1 = intervals[2]; counter1 < intervals[3]; counter1++)
             {
                 heart.Add(heart_array[counter1]);
@@ -358,6 +409,11 @@ namespace ASE_Assignment
             TableFiller("km/hr");
             SummaryFiller();
         }
+        /// <summary>
+        /// Action event to see the details of fifth interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -373,6 +429,7 @@ namespace ASE_Assignment
 
 
             Console.WriteLine(heart_array[0]);
+            InfoNuller();
             for (int counter1 = intervals[3]; counter1 < intervals[4]; counter1++)
             {
                 heart.Add(heart_array[counter1]);
@@ -402,6 +459,9 @@ namespace ASE_Assignment
             SummaryFiller();
         }
 
+        /// <summary>
+        /// Calls the summary calculator class and calculates summary and displays it in text area
+        /// </summary>
 
         public void SummaryFiller()
         {

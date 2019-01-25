@@ -17,7 +17,9 @@ namespace ASE_Assignment
 {
     public partial class Form1 : Form
     {
-        //Necesssary Global Variables Declaration
+        /// <summary>
+        /// Necessary Variable Declaration
+        /// </summary>
         List<string> arrays = new List<string>();
         List<int> heart = new List<int>();
         List<double> speed = new List<double>();
@@ -73,7 +75,10 @@ namespace ASE_Assignment
 
 
 
-        // Method to process the file and read the header and data from file
+        /// <summary>
+        ///  Method to process the file and read the header and data from file and processes it
+        /// </summary>
+        /// <param name="filePath"></param>
         public void processfile(string filePath)
         {
 
@@ -137,7 +142,10 @@ namespace ASE_Assignment
 
         }
 
-        //Method that builds array according to the smode
+        /// <summary>
+        /// Method that builds array according to the smode of the data file
+        /// </summary>
+        /// <param name="line"></param>
         public void ArrayBuilder(string line)
         {
             try
@@ -196,7 +204,11 @@ namespace ASE_Assignment
 
 
 
-
+        /// <summary>
+        /// Action event to open the file dialouge to choose the file and to process it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -228,7 +240,10 @@ namespace ASE_Assignment
 
         }
 
-        //Method to populate the data grid view according to the unit of speed 
+        /// <summary>
+        /// This method populates the table according to the selected unit
+        /// </summary>
+        /// <param name="unit"></param>
         public void TableFiller(String unit)
         {
             if (unit.Equals("km/hr"))
@@ -259,6 +274,10 @@ namespace ASE_Assignment
             }
 
         }
+
+        /// <summary>
+        /// This method calls summary calculator to calculate advanced metrics and presents them in text area
+        /// </summary>
         public void Calculate_Advanced()
         {
             SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
@@ -281,7 +300,10 @@ namespace ASE_Assignment
             }
         }
 
-        //method to fetch the calculations from summary class and fill the text area
+        /// <summary>
+        /// method to fetch the calculations from summary class and fill the text area
+        /// </summary>
+        /// <param name="unit"></param>
         public void SummaryFiller(String unit)
         {
             SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
@@ -376,7 +398,9 @@ namespace ASE_Assignment
 
         }
 
-        //Method to re instiantiate all global variables to make them ready for anotherfile
+        /// <summary>
+        /// Method to re instiantiate all global variables to make them ready for anotherfile
+        /// </summary>
         public void ArrayNuller()
         {
             counter = 0;
@@ -446,6 +470,10 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Method to re instanstiate the variables for data chunking
+        /// </summary>
         public void NullerSelectableInfo()
         {
             counter = 0;
@@ -500,7 +528,11 @@ namespace ASE_Assignment
         }
 
 
-        // Method to build pointpair list according to time interval and data
+        /// <summary>
+        /// Method to build pointpair list according to time interval and data
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private PointPairList buildPointPairList(int[] data)
         {
             PointPairList pt = new ZedGraph.PointPairList();
@@ -512,6 +544,12 @@ namespace ASE_Assignment
             return pt;
 
         }
+
+        /// <summary>
+        /// Method to build pointpair list according to time interval and data doe double datatype
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private PointPairList buildPointPairList(double[] data)
         {
             PointPairList pt = new ZedGraph.PointPairList();
@@ -525,7 +563,9 @@ namespace ASE_Assignment
         }
 
 
-        //Method to create combined graph
+        /// <summary>
+        /// Method to create combined graph
+        /// </summary>
         private void createWholeGraph()
         {
 
@@ -562,7 +602,9 @@ namespace ASE_Assignment
         }
 
 
-        //Method to create individual graphs of all parameters
+        /// <summary>
+        /// Method to create individual graphs of all parameters
+        /// </summary>
         public void CreateIndividualGraph()
         {
 
@@ -645,7 +687,11 @@ namespace ASE_Assignment
         }
 
 
-        //Event when unit if speed is selected
+        /// <summary>
+        /// Event when unit if speed is selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_re_Click(object sender, EventArgs e)
         {
 
@@ -762,7 +808,10 @@ namespace ASE_Assignment
 
         }
 
-        //Method to check the smode 
+        /// <summary>
+        /// Method to check the smode 
+        /// </summary>
+        /// <param name="words"></param>
         private void SMODEChecker(String[] words)
         {
             string mode = words[1];
@@ -776,7 +825,11 @@ namespace ASE_Assignment
         }
 
 
-        //Method to Create increasing time alongside the parameters
+        /// <summary>
+        /// Method to Create increasing time alongside the parameters
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         private String timeBuilder(string time)
         {
 
@@ -791,6 +844,12 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Method to view the selected rows of the table "Selectable Info"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void View_Click(object sender, EventArgs e)
         {
             Console.WriteLine(dataGridView1.SelectedRows.Count + "  " + dataGridView1.SelectedColumns.Count);
@@ -859,6 +918,11 @@ namespace ASE_Assignment
             }
         }
 
+        /// <summary>
+        /// Avtion Evento to open the comparision form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             ComparisionForm cf = new ComparisionForm();
@@ -866,6 +930,12 @@ namespace ASE_Assignment
             this.Hide();
         }
 
+
+        /// <summary>
+        /// Action Event For Chunking the data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
             int[] heartRate = heart.ToArray();
@@ -940,7 +1010,11 @@ namespace ASE_Assignment
 
 
         }
-
+        /// <summary>
+        /// Action Event ti view the details of the first chunk of data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
             Console.WriteLine("I am Clicked");
@@ -996,7 +1070,11 @@ namespace ASE_Assignment
 
 
         }
-
+        /// <summary>
+        /// Action Event ti view the details of the Second chunk of data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button5_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -1047,6 +1125,12 @@ namespace ASE_Assignment
             }
         }
 
+
+        /// <summary>
+        /// Action Event ti view the details of the third chunk of data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button6_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -1097,6 +1181,13 @@ namespace ASE_Assignment
             }
         }
 
+
+
+        /// <summary>
+        /// Action Event ti view the details of the third chunk of data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button7_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -1147,6 +1238,12 @@ namespace ASE_Assignment
             }
         }
 
+
+        /// <summary>
+        /// Action Event ti view the details of the Fifth chunk of data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button8_Click(object sender, EventArgs e)
         {
             int[] heart_array = heart11.ToArray();
@@ -1197,6 +1294,12 @@ namespace ASE_Assignment
             }
         }
 
+
+        /// <summary>
+        /// Method to detect the intervals in the training sessions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button9_Click(object sender, EventArgs e)
         {
             int starter = 1;
@@ -1244,6 +1347,12 @@ namespace ASE_Assignment
 
         }
 
+
+        /// <summary>
+        /// Action Event to restart the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button10_Click(object sender, EventArgs e)
         {
             Application.Restart();
