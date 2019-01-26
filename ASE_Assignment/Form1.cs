@@ -280,17 +280,19 @@ namespace ASE_Assignment
         /// </summary>
         public void Calculate_Advanced()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerbalance, timee);
             string FTP = sv.CalculateFTP();
             string Np = sv.CalculateNP();
             string If = sv.CalculateIF();
             string Tss = sv.CalculateTSS();
+            String pb = sv.CalculatePB();
             List<String> adv = new List<string>
             {
                 FTP,
                 Np,
                 If,
-                Tss
+                Tss,
+                pb
 
             };
             foreach (String val in adv)
@@ -306,7 +308,7 @@ namespace ASE_Assignment
         /// <param name="unit"></param>
         public void SummaryFiller(String unit)
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerbalance, timee);
             string totalDistanceKm = sv.TotalDistance();
             string totalMile = sv.TotalDistanceMile();
             string avgSpeed = sv.AverageSpeed();
@@ -864,7 +866,7 @@ namespace ASE_Assignment
                 {
                     String[] word1 = row.Cells[0].Value.ToString().Split(' ');
                     heart.Add(int.Parse(word1[0]));
-                    Console.WriteLine(row.Cells[0].Value.ToString());
+                    
 
                     String[] word2 = row.Cells[1].Value.ToString().Split(' ');
 
@@ -881,8 +883,12 @@ namespace ASE_Assignment
                     Console.WriteLine(word5[0]);
                     power.Add(int.Parse(word5[0]));
 
+                    String[] word6 = row.Cells[5].Value.ToString().Split(' ');
+                    Console.WriteLine(word6[0]);
+                    powerbalance.Add(int.Parse(word6[0]));
+
                     // String word6 = row.Cells[4].Value.ToString(); 
-                    powerbalance.Add(0);
+                   // powerbalance.Add(0);
 
 
                     Console.WriteLine(word1[0] + "  " + word1[1]);

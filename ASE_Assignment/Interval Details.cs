@@ -465,7 +465,7 @@ namespace ASE_Assignment
 
         public void SummaryFiller()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerbalance, time);
             string totalDistanceKm = sv.TotalDistance();
             string totalMile = sv.TotalDistanceMile();
             string avgSpeed = sv.AverageSpeed();

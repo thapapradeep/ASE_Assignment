@@ -730,7 +730,7 @@ namespace ASE_Assignment
         /// </summary>
         public void SummaryFiller()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, timee);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerbalance, timee);
             string[] stotalDistanceKm = sv.TotalDistance().Split('=');
             String totalDistanceKm = stotalDistanceKm[1];
 
@@ -768,7 +768,7 @@ namespace ASE_Assignment
 
 
 
-            SummaryCalculator sv1 = new SummaryCalculator(heart11, speed11, speed_mile11, cadence11, altitude11, power11, timee1);
+            SummaryCalculator sv1 = new SummaryCalculator(heart11, speed11, speed_mile11, cadence11, altitude11, power11, powerbalance11, timee1);
             string[] stotalDistanceKm1 = sv1.TotalDistance().Split('=');
             String totalDistanceKm1 = stotalDistanceKm[1];
 

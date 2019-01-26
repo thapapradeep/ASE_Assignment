@@ -41,6 +41,11 @@ namespace ASE_AssignmentTest
             {
              20, 30, 40
             };
+
+        List<int> powerBalance = new List<int>()
+            {
+             20, 30, 40
+            };
         String time = "12:00";
 
 
@@ -99,7 +104,7 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void AverageSpeedTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.AverageSpeed();
             Assert.AreEqual(result, "Average Speed=30 km/hr");
         }
@@ -110,7 +115,7 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void AverageSpeedMileTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.AverageSpeedMile();
             Assert.AreEqual(result, "Average Speed=30 miles/hr");
         }
@@ -121,7 +126,7 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void MaxSpeedMileTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.MaxSpeedMile();
             Assert.AreEqual(result, "Maximum Speed=40 miles/hr");
         }
@@ -133,7 +138,7 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void MaxSpeedTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.MaxSpeed();
             Assert.AreEqual(result, "Maximum Speed=40 km/hr");
         }
@@ -141,7 +146,7 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void MaxPowerTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.maxPower();
             Assert.AreEqual(result, "Maximum Power=40 watts");
         }
@@ -150,7 +155,7 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void AverageAltitudeTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.AverageAltitude();
             Assert.AreEqual(result, "Average Altitude=30 m/ft");
         }
@@ -160,9 +165,10 @@ namespace ASE_AssignmentTest
         [TestMethod()]
         public void MaxHeartRateTest()
         {
-            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, time);
+            SummaryCalculator sv = new SummaryCalculator(heart, speed, speed_mile, cadence, altitude, power, powerBalance, time);
             String result = sv.MaxHeartRate();
             Assert.AreEqual(result, "Maximum Heart Rate=40 bpm");
+            //}
         }
     }
 }

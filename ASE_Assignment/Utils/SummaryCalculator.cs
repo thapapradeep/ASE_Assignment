@@ -20,7 +20,7 @@ namespace ASE_Assignment.Utils
         string time="";
         double FTP = 0;
         double NP = 0;
-        double PB = 12;
+        double PB;
         double IF = 0;
 
 
@@ -34,7 +34,7 @@ namespace ASE_Assignment.Utils
         /// <param name="altitude"></param>
         /// <param name="power"></param>
         /// <param name="time"></param>
-        public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power, string time)
+        public SummaryCalculator(List<int> heart, List<double> speed, List<double> speed_mile, List<int> cadence, List<int> altitude, List<int> power, List<int>pow, string time)
         {
             this.heart = heart;
             this.speed = speed;
@@ -43,6 +43,7 @@ namespace ASE_Assignment.Utils
             this.altitude = altitude;
             this.power = power;
             this.time = time;
+            this.powerbalance = pow;
 
 
         }
@@ -374,6 +375,17 @@ namespace ASE_Assignment.Utils
 
             return "Training Stress Score=" + TSS+" .";
 
+        }
+        /// <summary>
+        /// Method to calculate Power Balance
+        /// </summary>
+        /// <returns></returns>
+        public String CalculatePB()
+        {
+           double avgPow = powerbalance.Average();
+            PB = Math.Round(avgPow / (256), 2);
+
+            return "Power Balance=" + PB;
         }
     }
 }
